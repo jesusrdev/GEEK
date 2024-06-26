@@ -22,7 +22,7 @@ namespace GEEK.AccesoDatos.Models
         public string? IdCategoria { get; set; }
         public string? IdEstado { get; set; }
 
-        public virtual Categorium? IdCategoriaNavigation { get; set; }
+        public virtual Categoria? IdCategoriaNavigation { get; set; }
         public virtual EstadoProducto? IdEstadoNavigation { get; set; }
         public virtual Marca? IdMarcaNavigation { get; set; }
         public virtual ICollection<Carrito> Carritos { get; set; }
