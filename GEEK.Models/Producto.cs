@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GEEK.AccesoDatos.Models
+namespace GEEK.Models
 {
     public partial class Producto
     {
         public Producto()
         {
             Carritos = new HashSet<Carrito>();
-            IdImagens = new HashSet<Imagen>();
+            Imagenes = new HashSet<Imagen>();
         }
 
         public string IdProducto { get; set; } = null!;
@@ -22,11 +22,11 @@ namespace GEEK.AccesoDatos.Models
         public string? IdCategoria { get; set; }
         public string? IdEstado { get; set; }
 
-        public virtual Categoria? IdCategoriaNavigation { get; set; }
-        public virtual EstadoProducto? IdEstadoNavigation { get; set; }
-        public virtual Marca? IdMarcaNavigation { get; set; }
+        public virtual Categoria? Categoria { get; set; }
+        public virtual EstadoProducto? Estado { get; set; }
+        public virtual Marca? Marca { get; set; }
         public virtual ICollection<Carrito> Carritos { get; set; }
 
-        public virtual ICollection<Imagen> IdImagens { get; set; }
+        public virtual ICollection<Imagen> Imagenes { get; set; }
     }
 }

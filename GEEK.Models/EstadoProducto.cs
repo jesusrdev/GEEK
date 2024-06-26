@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GEEK.AccesoDatos.Models
+namespace GEEK.Models
 {
     public partial class EstadoProducto
     {

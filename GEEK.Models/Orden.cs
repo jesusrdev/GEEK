@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GEEK.AccesoDatos.Models
+namespace GEEK.Models
 {
     public partial class Orden
     {
@@ -12,8 +12,8 @@ namespace GEEK.AccesoDatos.Models
         public int? Cantidad { get; set; }
         public DateTime FechaCreacion { get; set; }
 
-        public virtual Carrito? IdCarritoNavigation { get; set; }
-        public virtual EstadoOrden? IdEstadoOrdenNavigation { get; set; }
-        public virtual Usuario? IdUsuarioNavigation { get; set; }
+        public virtual Carrito? Carrito { get; set; }
+        public virtual EstadoOrden? EstadoOrden { get; set; }
+        public virtual Usuario? Usuario { get; set; }
     }
 }

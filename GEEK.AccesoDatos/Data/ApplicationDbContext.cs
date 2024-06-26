@@ -11,20 +11,23 @@ namespace GEEK.Data
         {
         }
 
-        public virtual DbSet<Carrito> Carritos { get; set; } = null!;
+        public virtual DbSet<Carrito> Carrito { get; set; } = null!;
         public virtual DbSet<Categoria> Categoria { get; set; } = null!;
-        public virtual DbSet<EstadoOrden> EstadoOrdens { get; set; } = null!;
-        public virtual DbSet<EstadoProducto> EstadoProductos { get; set; } = null!;
-        public virtual DbSet<Imagen> Imagens { get; set; } = null!;
-        public virtual DbSet<Marca> Marcas { get; set; } = null!;
-        public virtual DbSet<Orden> Ordens { get; set; } = null!;
-        public virtual DbSet<Producto> Productos { get; set; } = null!;
-        public virtual DbSet<Rol> Rols { get; set; } = null!;
-        public virtual DbSet<Usuario> Usuarios { get; set; } = null!;
+        public virtual DbSet<EstadoOrden> EstadoOrden { get; set; } = null!;
+        public virtual DbSet<EstadoProducto> EstadoProducto { get; set; } = null!;
+        public virtual DbSet<Imagen> Imagen { get; set; } = null!;
+        public virtual DbSet<Marca> Marca { get; set; } = null!;
+        public virtual DbSet<Orden> Orden { get; set; } = null!;
+        public virtual DbSet<Producto> Producto { get; set; } = null!;
+        public virtual DbSet<Rol> Rol { get; set; } = null!;
+        public virtual DbSet<Usuario> Usuario { get; set; } = null!;
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder); // chatgpt error identity
+
+
             modelBuilder.Entity<Carrito>(entity =>
             {
                 entity.HasKey(e => e.IdCarrito)
@@ -54,12 +57,12 @@ namespace GEEK.Data
                     .HasColumnName("idUsuario")
                     .IsFixedLength();
 
-                entity.HasOne(d => d.IdProductoNavigation)
+                entity.HasOne(d => d.Producto)
                     .WithMany(p => p.Carritos)
                     .HasForeignKey(d => d.IdProducto)
                     .HasConstraintName("FK_Carrito_Producto");
 
-                entity.HasOne(d => d.IdUsuarioNavigation)
+                entity.HasOne(d => d.Usuario)
                     .WithMany(p => p.Carritos)
                     .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("FK_Carrito_Usuario");
@@ -203,18 +206,18 @@ namespace GEEK.Data
                     .HasColumnName("idUsuario")
                     .IsFixedLength();
 
-                entity.HasOne(d => d.IdCarritoNavigation)
-                    .WithMany(p => p.Ordens)
+                entity.HasOne(d => d.Carrito)
+                    .WithMany(p => p.Ordenes)
                     .HasForeignKey(d => d.IdCarrito)
                     .HasConstraintName("FK_Orden_Carrito");
 
-                entity.HasOne(d => d.IdEstadoOrdenNavigation)
-                    .WithMany(p => p.Ordens)
+                entity.HasOne(d => d.EstadoOrden)
+                    .WithMany(p => p.Ordenes)
                     .HasForeignKey(d => d.IdEstadoOrden)
                     .HasConstraintName("FK_Orden_EstadoOrden");
 
-                entity.HasOne(d => d.IdUsuarioNavigation)
-                    .WithMany(p => p.Ordens)
+                entity.HasOne(d => d.Usuario)
+                    .WithMany(p => p.Ordenes)
                     .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("FK_Orden_Usuario");
             });
@@ -274,23 +277,23 @@ namespace GEEK.Data
 
                 entity.Property(e => e.StockProducto).HasColumnName("stockProducto");
 
-                entity.HasOne(d => d.IdCategoriaNavigation)
+                entity.HasOne(d => d.Categoria)
                     .WithMany(p => p.Productos)
                     .HasForeignKey(d => d.IdCategoria)
                     .HasConstraintName("FK_Producto_Categoria");
 
-                entity.HasOne(d => d.IdEstadoNavigation)
+                entity.HasOne(d => d.Estado)
                     .WithMany(p => p.Productos)
                     .HasForeignKey(d => d.IdEstado)
                     .HasConstraintName("FK_Producto_Estado");
 
-                entity.HasOne(d => d.IdMarcaNavigation)
+                entity.HasOne(d => d.Marca)
                     .WithMany(p => p.Productos)
                     .HasForeignKey(d => d.IdMarca)
                     .HasConstraintName("FK_Producto_Marca");
 
-                entity.HasMany(d => d.IdImagens)
-                    .WithMany(p => p.IdProductos)
+                entity.HasMany(d => d.Imagenes)
+                    .WithMany(p => p.Productos)
                     .UsingEntity<Dictionary<string, object>>(
                         "ProductoImagen",
                         l => l.HasOne<Imagen>().WithMany().HasForeignKey("IdImagen").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ProductoImagen_ImagenProducto"),
