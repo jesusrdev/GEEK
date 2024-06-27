@@ -16,6 +16,7 @@ namespace GEEK.Areas.Cliente.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.IsHomeActive = "active";
             return View();
         }
 
