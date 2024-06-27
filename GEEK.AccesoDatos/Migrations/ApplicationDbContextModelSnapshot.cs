@@ -22,45 +22,6 @@ namespace GEEK.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("GEEK.Models.Carrito", b =>
-                {
-                    b.Property<string>("IdCarrito")
-                        .HasMaxLength(5)
-                        .IsUnicode(false)
-                        .HasColumnType("char(5)")
-                        .HasColumnName("idCarrito")
-                        .IsFixedLength();
-
-                    b.Property<int?>("Cantidad")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("cantidad")
-                        .HasDefaultValueSql("((1))");
-
-                    b.Property<string>("IdProducto")
-                        .HasMaxLength(5)
-                        .IsUnicode(false)
-                        .HasColumnType("char(5)")
-                        .HasColumnName("idProducto")
-                        .IsFixedLength();
-
-                    b.Property<string>("IdUsuario")
-                        .HasMaxLength(5)
-                        .IsUnicode(false)
-                        .HasColumnType("char(5)")
-                        .HasColumnName("idUsuario")
-                        .IsFixedLength();
-
-                    b.HasKey("IdCarrito")
-                        .HasName("PK__Carrito__7AF85448DBBC2CB4");
-
-                    b.HasIndex("IdProducto");
-
-                    b.HasIndex("IdUsuario");
-
-                    b.ToTable("Carrito", (string)null);
-                });
-
             modelBuilder.Entity("GEEK.Models.Categoria", b =>
                 {
                     b.Property<string>("IdCategoria")
@@ -78,53 +39,52 @@ namespace GEEK.Data.Migrations
                         .HasColumnName("descripcionCategoria");
 
                     b.HasKey("IdCategoria")
-                        .HasName("PK__Categori__8A3D240C0906EB00");
+                        .HasName("PK__Categoria");
 
                     b.ToTable("Categoria");
                 });
 
-            modelBuilder.Entity("GEEK.Models.EstadoOrden", b =>
+            modelBuilder.Entity("GEEK.Models.DetalleOrden", b =>
                 {
-                    b.Property<string>("IdEstadoOrden")
+                    b.Property<string>("IdOrden")
                         .HasMaxLength(5)
                         .IsUnicode(false)
                         .HasColumnType("char(5)")
-                        .HasColumnName("idEstadoOrden")
+                        .HasColumnName("idOrden")
                         .IsFixedLength();
 
-                    b.Property<string>("NombreEstadoOrden")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("nombreEstadoOrden");
-
-                    b.HasKey("IdEstadoOrden")
-                        .HasName("PK__EstadoOr__9CDE093F84FDE170");
-
-                    b.ToTable("EstadoOrden", (string)null);
-                });
-
-            modelBuilder.Entity("GEEK.Models.EstadoProducto", b =>
-                {
-                    b.Property<string>("IdEstado")
+                    b.Property<string>("IdProducto")
                         .HasMaxLength(5)
                         .IsUnicode(false)
                         .HasColumnType("char(5)")
-                        .HasColumnName("idEstado")
+                        .HasColumnName("idProducto")
                         .IsFixedLength();
 
-                    b.Property<string>("NombreEstado")
-                        .IsRequired()
-                        .HasMaxLength(50)
+                    b.Property<int?>("Cantidad")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("cantidad")
+                        .HasDefaultValueSql("((1))");
+
+                    b.Property<string>("IdUsuario")
+                        .HasMaxLength(5)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("nombreEstado");
+                        .HasColumnType("char(5)")
+                        .HasColumnName("idUsuario")
+                        .IsFixedLength();
 
-                    b.HasKey("IdEstado")
-                        .HasName("PK__EstadoPr__62EA894AF09A9C25");
+                    b.Property<double?>("Precio")
+                        .HasColumnType("float")
+                        .HasColumnName("precio");
 
-                    b.ToTable("EstadoProducto", (string)null);
+                    b.HasKey("IdOrden", "IdProducto")
+                        .HasName("PK__DetalleOrden");
+
+                    b.HasIndex("IdProducto");
+
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("DetalleOrden", (string)null);
                 });
 
             modelBuilder.Entity("GEEK.Models.Imagen", b =>
@@ -144,7 +104,7 @@ namespace GEEK.Data.Migrations
                         .HasColumnName("rutaImagen");
 
                     b.HasKey("IdImagen")
-                        .HasName("PK__Imagen__EA9A7136B8013B6F");
+                        .HasName("PK__Imagen");
 
                     b.ToTable("Imagen", (string)null);
                 });
@@ -173,7 +133,7 @@ namespace GEEK.Data.Migrations
                         .HasColumnName("rutaImagen");
 
                     b.HasKey("IdMarca")
-                        .HasName("PK__Marca__70331812333F1414");
+                        .HasName("PK__Marca");
 
                     b.ToTable("Marca", (string)null);
                 });
@@ -187,31 +147,18 @@ namespace GEEK.Data.Migrations
                         .HasColumnName("idOrden")
                         .IsFixedLength();
 
-                    b.Property<int?>("Cantidad")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("cantidad")
-                        .HasDefaultValueSql("((1))");
+                    b.Property<string>("EstadoOrden")
+                        .HasMaxLength(5)
+                        .IsUnicode(false)
+                        .HasColumnType("char(5)")
+                        .HasColumnName("estadoOrden")
+                        .IsFixedLength();
 
                     b.Property<DateTime>("FechaCreacion")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasColumnName("fechaCreacion")
                         .HasDefaultValueSql("(getdate())");
-
-                    b.Property<string>("IdCarrito")
-                        .HasMaxLength(5)
-                        .IsUnicode(false)
-                        .HasColumnType("char(5)")
-                        .HasColumnName("idCarrito")
-                        .IsFixedLength();
-
-                    b.Property<string>("IdEstadoOrden")
-                        .HasMaxLength(5)
-                        .IsUnicode(false)
-                        .HasColumnType("char(5)")
-                        .HasColumnName("idEstadoOrden")
-                        .IsFixedLength();
 
                     b.Property<string>("IdUsuario")
                         .HasMaxLength(5)
@@ -221,11 +168,7 @@ namespace GEEK.Data.Migrations
                         .IsFixedLength();
 
                     b.HasKey("IdOrden")
-                        .HasName("PK__Orden__C8AAF6F3DED97662");
-
-                    b.HasIndex("IdCarrito");
-
-                    b.HasIndex("IdEstadoOrden");
+                        .HasName("PK__Orden");
 
                     b.HasIndex("IdUsuario");
 
@@ -256,18 +199,17 @@ namespace GEEK.Data.Migrations
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("descuento");
 
+                    b.Property<string>("EstadoProducto")
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("estadoProducto");
+
                     b.Property<string>("IdCategoria")
                         .HasMaxLength(5)
                         .IsUnicode(false)
                         .HasColumnType("char(5)")
                         .HasColumnName("idCategoria")
-                        .IsFixedLength();
-
-                    b.Property<string>("IdEstado")
-                        .HasMaxLength(5)
-                        .IsUnicode(false)
-                        .HasColumnType("char(5)")
-                        .HasColumnName("idEstado")
                         .IsFixedLength();
 
                     b.Property<string>("IdMarca")
@@ -293,11 +235,9 @@ namespace GEEK.Data.Migrations
                         .HasColumnName("stockProducto");
 
                     b.HasKey("IdProducto")
-                        .HasName("PK__Producto__07F4A1329A87DF85");
+                        .HasName("PK__Producto");
 
                     b.HasIndex("IdCategoria");
-
-                    b.HasIndex("IdEstado");
 
                     b.HasIndex("IdMarca");
 
@@ -321,7 +261,7 @@ namespace GEEK.Data.Migrations
                         .HasColumnName("descripcionRol");
 
                     b.HasKey("IdRol")
-                        .HasName("PK__Rol__3C872F7625E6BB0F");
+                        .HasName("PK__Rol");
 
                     b.ToTable("Rol", (string)null);
                 });
@@ -398,11 +338,11 @@ namespace GEEK.Data.Migrations
                         .HasColumnName("pais");
 
                     b.HasKey("IdUsuario")
-                        .HasName("PK__Usuario__645723A6F4C2F037");
+                        .HasName("PK__Usuario");
 
                     b.HasIndex("IdRol");
 
-                    b.HasIndex(new[] { "Email" }, "UQ__Usuario__AB6E61640D72C261")
+                    b.HasIndex(new[] { "Email" }, "UQ__Usuario__Email")
                         .IsUnique();
 
                     b.ToTable("Usuario", (string)null);
@@ -627,24 +567,33 @@ namespace GEEK.Data.Migrations
                         .IsFixedLength();
 
                     b.HasKey("IdProducto", "IdImagen")
-                        .HasName("PK__Producto__795D06214F0DF451");
+                        .HasName("PK__Producto__Imagen");
 
                     b.HasIndex("IdImagen");
 
                     b.ToTable("ProductoImagen", (string)null);
                 });
 
-            modelBuilder.Entity("GEEK.Models.Carrito", b =>
+            modelBuilder.Entity("GEEK.Models.DetalleOrden", b =>
                 {
+                    b.HasOne("GEEK.Models.Orden", "Orden")
+                        .WithMany("DetalleOrden")
+                        .HasForeignKey("IdOrden")
+                        .IsRequired()
+                        .HasConstraintName("FK_DetalleOrden_Orden");
+
                     b.HasOne("GEEK.Models.Producto", "Producto")
-                        .WithMany("Carritos")
+                        .WithMany("DetalleOrden")
                         .HasForeignKey("IdProducto")
-                        .HasConstraintName("FK_Carrito_Producto");
+                        .IsRequired()
+                        .HasConstraintName("FK_DetalleOrden_Producto");
 
                     b.HasOne("GEEK.Models.Usuario", "Usuario")
-                        .WithMany("Carritos")
+                        .WithMany("DetalleOrden")
                         .HasForeignKey("IdUsuario")
-                        .HasConstraintName("FK_Carrito_Usuario");
+                        .HasConstraintName("FK_DetalleOrden_Usuario");
+
+                    b.Navigation("Orden");
 
                     b.Navigation("Producto");
 
@@ -653,24 +602,10 @@ namespace GEEK.Data.Migrations
 
             modelBuilder.Entity("GEEK.Models.Orden", b =>
                 {
-                    b.HasOne("GEEK.Models.Carrito", "Carrito")
-                        .WithMany("Ordenes")
-                        .HasForeignKey("IdCarrito")
-                        .HasConstraintName("FK_Orden_Carrito");
-
-                    b.HasOne("GEEK.Models.EstadoOrden", "EstadoOrden")
-                        .WithMany("Ordenes")
-                        .HasForeignKey("IdEstadoOrden")
-                        .HasConstraintName("FK_Orden_EstadoOrden");
-
                     b.HasOne("GEEK.Models.Usuario", "Usuario")
                         .WithMany("Ordenes")
                         .HasForeignKey("IdUsuario")
                         .HasConstraintName("FK_Orden_Usuario");
-
-                    b.Navigation("Carrito");
-
-                    b.Navigation("EstadoOrden");
 
                     b.Navigation("Usuario");
                 });
@@ -682,19 +617,12 @@ namespace GEEK.Data.Migrations
                         .HasForeignKey("IdCategoria")
                         .HasConstraintName("FK_Producto_Categoria");
 
-                    b.HasOne("GEEK.Models.EstadoProducto", "Estado")
-                        .WithMany("Productos")
-                        .HasForeignKey("IdEstado")
-                        .HasConstraintName("FK_Producto_Estado");
-
                     b.HasOne("GEEK.Models.Marca", "Marca")
                         .WithMany("Productos")
                         .HasForeignKey("IdMarca")
                         .HasConstraintName("FK_Producto_Marca");
 
                     b.Navigation("Categoria");
-
-                    b.Navigation("Estado");
 
                     b.Navigation("Marca");
                 });
@@ -775,22 +703,7 @@ namespace GEEK.Data.Migrations
                         .HasConstraintName("FK_ProductoImagen_Producto");
                 });
 
-            modelBuilder.Entity("GEEK.Models.Carrito", b =>
-                {
-                    b.Navigation("Ordenes");
-                });
-
             modelBuilder.Entity("GEEK.Models.Categoria", b =>
-                {
-                    b.Navigation("Productos");
-                });
-
-            modelBuilder.Entity("GEEK.Models.EstadoOrden", b =>
-                {
-                    b.Navigation("Ordenes");
-                });
-
-            modelBuilder.Entity("GEEK.Models.EstadoProducto", b =>
                 {
                     b.Navigation("Productos");
                 });
@@ -800,9 +713,14 @@ namespace GEEK.Data.Migrations
                     b.Navigation("Productos");
                 });
 
+            modelBuilder.Entity("GEEK.Models.Orden", b =>
+                {
+                    b.Navigation("DetalleOrden");
+                });
+
             modelBuilder.Entity("GEEK.Models.Producto", b =>
                 {
-                    b.Navigation("Carritos");
+                    b.Navigation("DetalleOrden");
                 });
 
             modelBuilder.Entity("GEEK.Models.Rol", b =>
@@ -812,7 +730,7 @@ namespace GEEK.Data.Migrations
 
             modelBuilder.Entity("GEEK.Models.Usuario", b =>
                 {
-                    b.Navigation("Carritos");
+                    b.Navigation("DetalleOrden");
 
                     b.Navigation("Ordenes");
                 });

@@ -7,7 +7,7 @@ namespace GEEK.Models
     {
         public Producto()
         {
-            Carritos = new HashSet<Carrito>();
+            DetalleOrden = new HashSet<DetalleOrden>();
             Imagenes = new HashSet<Imagen>();
         }
 
@@ -20,12 +20,11 @@ namespace GEEK.Models
         public decimal? Descuento { get; set; }
         public string? IdMarca { get; set; }
         public string? IdCategoria { get; set; }
-        public string? IdEstado { get; set; }
+        public string? EstadoProducto { get; set; }
 
         public virtual Categoria? Categoria { get; set; }
-        public virtual EstadoProducto? Estado { get; set; }
         public virtual Marca? Marca { get; set; }
-        public virtual ICollection<Carrito> Carritos { get; set; }
+        public virtual ICollection<DetalleOrden> DetalleOrden { get; set; }
 
         public virtual ICollection<Imagen> Imagenes { get; set; }
     }

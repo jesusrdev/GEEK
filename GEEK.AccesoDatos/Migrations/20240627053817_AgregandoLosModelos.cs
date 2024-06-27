@@ -18,31 +18,7 @@ namespace GEEK.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Categori__8A3D240C0906EB00", x => x.idCategoria);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EstadoOrden",
-                columns: table => new
-                {
-                    idEstadoOrden = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: false),
-                    nombreEstadoOrden = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__EstadoOr__9CDE093F84FDE170", x => x.idEstadoOrden);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EstadoProducto",
-                columns: table => new
-                {
-                    idEstado = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: false),
-                    nombreEstado = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__EstadoPr__62EA894AF09A9C25", x => x.idEstado);
+                    table.PrimaryKey("PK__Categoria", x => x.idCategoria);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,7 +30,7 @@ namespace GEEK.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Imagen__EA9A7136B8013B6F", x => x.idImagen);
+                    table.PrimaryKey("PK__Imagen", x => x.idImagen);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,7 +43,7 @@ namespace GEEK.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Marca__70331812333F1414", x => x.idMarca);
+                    table.PrimaryKey("PK__Marca", x => x.idMarca);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,7 +55,7 @@ namespace GEEK.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Rol__3C872F7625E6BB0F", x => x.idRol);
+                    table.PrimaryKey("PK__Rol", x => x.idRol);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,21 +71,16 @@ namespace GEEK.Data.Migrations
                     descuento = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
                     idMarca = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: true),
                     idCategoria = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: true),
-                    idEstado = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: true)
+                    estadoProducto = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Producto__07F4A1329A87DF85", x => x.idProducto);
+                    table.PrimaryKey("PK__Producto", x => x.idProducto);
                     table.ForeignKey(
                         name: "FK_Producto_Categoria",
                         column: x => x.idCategoria,
                         principalTable: "Categoria",
                         principalColumn: "idCategoria");
-                    table.ForeignKey(
-                        name: "FK_Producto_Estado",
-                        column: x => x.idEstado,
-                        principalTable: "EstadoProducto",
-                        principalColumn: "idEstado");
                     table.ForeignKey(
                         name: "FK_Producto_Marca",
                         column: x => x.idMarca,
@@ -134,7 +105,7 @@ namespace GEEK.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Usuario__645723A6F4C2F037", x => x.idUsuario);
+                    table.PrimaryKey("PK__Usuario", x => x.idUsuario);
                     table.ForeignKey(
                         name: "FK_Usuario_Rol",
                         column: x => x.idRol,
@@ -151,7 +122,7 @@ namespace GEEK.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Producto__795D06214F0DF451", x => new { x.idProducto, x.idImagen });
+                    table.PrimaryKey("PK__Producto__Imagen", x => new { x.idProducto, x.idImagen });
                     table.ForeignKey(
                         name: "FK_ProductoImagen_ImagenProducto",
                         column: x => x.idImagen,
@@ -165,53 +136,17 @@ namespace GEEK.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Carrito",
-                columns: table => new
-                {
-                    idCarrito = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: false),
-                    idProducto = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: true),
-                    idUsuario = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: true),
-                    cantidad = table.Column<int>(type: "int", nullable: true, defaultValueSql: "((1))")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__Carrito__7AF85448DBBC2CB4", x => x.idCarrito);
-                    table.ForeignKey(
-                        name: "FK_Carrito_Producto",
-                        column: x => x.idProducto,
-                        principalTable: "Producto",
-                        principalColumn: "idProducto");
-                    table.ForeignKey(
-                        name: "FK_Carrito_Usuario",
-                        column: x => x.idUsuario,
-                        principalTable: "Usuario",
-                        principalColumn: "idUsuario");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Orden",
                 columns: table => new
                 {
                     idOrden = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: false),
-                    idCarrito = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: true),
                     idUsuario = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: true),
-                    idEstadoOrden = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: true),
-                    cantidad = table.Column<int>(type: "int", nullable: true, defaultValueSql: "((1))"),
+                    estadoOrden = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: true),
                     fechaCreacion = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(getdate())")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Orden__C8AAF6F3DED97662", x => x.idOrden);
-                    table.ForeignKey(
-                        name: "FK_Orden_Carrito",
-                        column: x => x.idCarrito,
-                        principalTable: "Carrito",
-                        principalColumn: "idCarrito");
-                    table.ForeignKey(
-                        name: "FK_Orden_EstadoOrden",
-                        column: x => x.idEstadoOrden,
-                        principalTable: "EstadoOrden",
-                        principalColumn: "idEstadoOrden");
+                    table.PrimaryKey("PK__Orden", x => x.idOrden);
                     table.ForeignKey(
                         name: "FK_Orden_Usuario",
                         column: x => x.idUsuario,
@@ -219,25 +154,45 @@ namespace GEEK.Data.Migrations
                         principalColumn: "idUsuario");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "DetalleOrden",
+                columns: table => new
+                {
+                    idOrden = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: false),
+                    idProducto = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: false),
+                    idUsuario = table.Column<string>(type: "char(5)", unicode: false, fixedLength: true, maxLength: 5, nullable: true),
+                    cantidad = table.Column<int>(type: "int", nullable: true, defaultValueSql: "((1))"),
+                    precio = table.Column<double>(type: "float", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__DetalleOrden", x => new { x.idOrden, x.idProducto });
+                    table.ForeignKey(
+                        name: "FK_DetalleOrden_Orden",
+                        column: x => x.idOrden,
+                        principalTable: "Orden",
+                        principalColumn: "idOrden");
+                    table.ForeignKey(
+                        name: "FK_DetalleOrden_Producto",
+                        column: x => x.idProducto,
+                        principalTable: "Producto",
+                        principalColumn: "idProducto");
+                    table.ForeignKey(
+                        name: "FK_DetalleOrden_Usuario",
+                        column: x => x.idUsuario,
+                        principalTable: "Usuario",
+                        principalColumn: "idUsuario");
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Carrito_idProducto",
-                table: "Carrito",
+                name: "IX_DetalleOrden_idProducto",
+                table: "DetalleOrden",
                 column: "idProducto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carrito_idUsuario",
-                table: "Carrito",
+                name: "IX_DetalleOrden_idUsuario",
+                table: "DetalleOrden",
                 column: "idUsuario");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orden_idCarrito",
-                table: "Orden",
-                column: "idCarrito");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orden_idEstadoOrden",
-                table: "Orden",
-                column: "idEstadoOrden");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orden_idUsuario",
@@ -248,11 +203,6 @@ namespace GEEK.Data.Migrations
                 name: "IX_Producto_idCategoria",
                 table: "Producto",
                 column: "idCategoria");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Producto_idEstado",
-                table: "Producto",
-                column: "idEstado");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Producto_idMarca",
@@ -270,7 +220,7 @@ namespace GEEK.Data.Migrations
                 column: "idRol");
 
             migrationBuilder.CreateIndex(
-                name: "UQ__Usuario__AB6E61640D72C261",
+                name: "UQ__Usuario__Email",
                 table: "Usuario",
                 column: "email",
                 unique: true);
@@ -279,16 +229,13 @@ namespace GEEK.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Orden");
+                name: "DetalleOrden");
 
             migrationBuilder.DropTable(
                 name: "ProductoImagen");
 
             migrationBuilder.DropTable(
-                name: "Carrito");
-
-            migrationBuilder.DropTable(
-                name: "EstadoOrden");
+                name: "Orden");
 
             migrationBuilder.DropTable(
                 name: "Imagen");
@@ -301,9 +248,6 @@ namespace GEEK.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categoria");
-
-            migrationBuilder.DropTable(
-                name: "EstadoProducto");
 
             migrationBuilder.DropTable(
                 name: "Marca");

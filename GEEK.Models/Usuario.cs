@@ -7,7 +7,7 @@ namespace GEEK.Models
     {
         public Usuario()
         {
-            Carritos = new HashSet<Carrito>();
+            DetalleOrden = new HashSet<DetalleOrden>();
             Ordenes = new HashSet<Orden>();
         }
 
@@ -23,7 +23,7 @@ namespace GEEK.Models
         public string? IdRol { get; set; }
 
         public virtual Rol? IdRolNavigation { get; set; }
-        public virtual ICollection<Carrito> Carritos { get; set; }
+        public virtual ICollection<DetalleOrden> DetalleOrden { get; set; }
         public virtual ICollection<Orden> Ordenes { get; set; }
     }
 }

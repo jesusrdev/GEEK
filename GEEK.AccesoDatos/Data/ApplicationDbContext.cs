@@ -11,10 +11,8 @@ namespace GEEK.Data
         {
         }
 
-        public virtual DbSet<Carrito> Carrito { get; set; } = null!;
         public virtual DbSet<Categoria> Categoria { get; set; } = null!;
-        public virtual DbSet<EstadoOrden> EstadoOrden { get; set; } = null!;
-        public virtual DbSet<EstadoProducto> EstadoProducto { get; set; } = null!;
+        public virtual DbSet<DetalleOrden> DetalleOrden { get; set; } = null!;
         public virtual DbSet<Imagen> Imagen { get; set; } = null!;
         public virtual DbSet<Marca> Marca { get; set; } = null!;
         public virtual DbSet<Orden> Orden { get; set; } = null!;
@@ -28,22 +26,18 @@ namespace GEEK.Data
             base.OnModelCreating(modelBuilder); // chatgpt error identity
 
 
-            modelBuilder.Entity<Carrito>(entity =>
+            modelBuilder.Entity<DetalleOrden>(entity =>
             {
-                entity.HasKey(e => e.IdCarrito)
-                    .HasName("PK__Carrito__7AF85448DBBC2CB4");
+                entity.HasKey(e => new { e.IdOrden, e.IdProducto })
+                    .HasName("PK__DetalleOrden");
 
-                entity.ToTable("Carrito");
+                entity.ToTable("DetalleOrden");
 
-                entity.Property(e => e.IdCarrito)
+                entity.Property(e => e.IdOrden)
                     .HasMaxLength(5)
                     .IsUnicode(false)
-                    .HasColumnName("idCarrito")
+                    .HasColumnName("idOrden")
                     .IsFixedLength();
-
-                entity.Property(e => e.Cantidad)
-                    .HasColumnName("cantidad")
-                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.IdProducto)
                     .HasMaxLength(5)
@@ -51,27 +45,40 @@ namespace GEEK.Data
                     .HasColumnName("idProducto")
                     .IsFixedLength();
 
+                entity.Property(e => e.Cantidad)
+                    .HasColumnName("cantidad")
+                    .HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.IdUsuario)
                     .HasMaxLength(5)
                     .IsUnicode(false)
                     .HasColumnName("idUsuario")
                     .IsFixedLength();
 
+                entity.Property(e => e.Precio).HasColumnName("precio");
+
+                entity.HasOne(d => d.Orden)
+                    .WithMany(p => p.DetalleOrden)
+                    .HasForeignKey(d => d.IdOrden)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DetalleOrden_Orden");
+
                 entity.HasOne(d => d.Producto)
-                    .WithMany(p => p.Carritos)
+                    .WithMany(p => p.DetalleOrden)
                     .HasForeignKey(d => d.IdProducto)
-                    .HasConstraintName("FK_Carrito_Producto");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DetalleOrden_Producto");
 
                 entity.HasOne(d => d.Usuario)
-                    .WithMany(p => p.Carritos)
+                    .WithMany(p => p.DetalleOrden)
                     .HasForeignKey(d => d.IdUsuario)
-                    .HasConstraintName("FK_Carrito_Usuario");
+                    .HasConstraintName("FK_DetalleOrden_Usuario");
             });
 
             modelBuilder.Entity<Categoria>(entity =>
             {
                 entity.HasKey(e => e.IdCategoria)
-                    .HasName("PK__Categori__8A3D240C0906EB00");
+                    .HasName("PK__Categoria");
 
                 entity.Property(e => e.IdCategoria)
                     .HasMaxLength(5)
@@ -85,48 +92,10 @@ namespace GEEK.Data
                     .HasColumnName("descripcionCategoria");
             });
 
-            modelBuilder.Entity<EstadoOrden>(entity =>
-            {
-                entity.HasKey(e => e.IdEstadoOrden)
-                    .HasName("PK__EstadoOr__9CDE093F84FDE170");
-
-                entity.ToTable("EstadoOrden");
-
-                entity.Property(e => e.IdEstadoOrden)
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .HasColumnName("idEstadoOrden")
-                    .IsFixedLength();
-
-                entity.Property(e => e.NombreEstadoOrden)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("nombreEstadoOrden");
-            });
-
-            modelBuilder.Entity<EstadoProducto>(entity =>
-            {
-                entity.HasKey(e => e.IdEstado)
-                    .HasName("PK__EstadoPr__62EA894AF09A9C25");
-
-                entity.ToTable("EstadoProducto");
-
-                entity.Property(e => e.IdEstado)
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .HasColumnName("idEstado")
-                    .IsFixedLength();
-
-                entity.Property(e => e.NombreEstado)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("nombreEstado");
-            });
-
             modelBuilder.Entity<Imagen>(entity =>
             {
                 entity.HasKey(e => e.IdImagen)
-                    .HasName("PK__Imagen__EA9A7136B8013B6F");
+                    .HasName("PK__Imagen");
 
                 entity.ToTable("Imagen");
 
@@ -145,7 +114,7 @@ namespace GEEK.Data
             modelBuilder.Entity<Marca>(entity =>
             {
                 entity.HasKey(e => e.IdMarca)
-                    .HasName("PK__Marca__70331812333F1414");
+                    .HasName("PK__Marca");
 
                 entity.ToTable("Marca");
 
@@ -169,7 +138,7 @@ namespace GEEK.Data
             modelBuilder.Entity<Orden>(entity =>
             {
                 entity.HasKey(e => e.IdOrden)
-                    .HasName("PK__Orden__C8AAF6F3DED97662");
+                    .HasName("PK__Orden");
 
                 entity.ToTable("Orden");
 
@@ -179,42 +148,22 @@ namespace GEEK.Data
                     .HasColumnName("idOrden")
                     .IsFixedLength();
 
-                entity.Property(e => e.Cantidad)
-                    .HasColumnName("cantidad")
-                    .HasDefaultValueSql("((1))");
+                entity.Property(e => e.EstadoOrden)
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("estadoOrden")
+                    .IsFixedLength();
 
                 entity.Property(e => e.FechaCreacion)
                     .HasColumnType("datetime")
                     .HasColumnName("fechaCreacion")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.IdCarrito)
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .HasColumnName("idCarrito")
-                    .IsFixedLength();
-
-                entity.Property(e => e.IdEstadoOrden)
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .HasColumnName("idEstadoOrden")
-                    .IsFixedLength();
-
                 entity.Property(e => e.IdUsuario)
                     .HasMaxLength(5)
                     .IsUnicode(false)
                     .HasColumnName("idUsuario")
                     .IsFixedLength();
-
-                entity.HasOne(d => d.Carrito)
-                    .WithMany(p => p.Ordenes)
-                    .HasForeignKey(d => d.IdCarrito)
-                    .HasConstraintName("FK_Orden_Carrito");
-
-                entity.HasOne(d => d.EstadoOrden)
-                    .WithMany(p => p.Ordenes)
-                    .HasForeignKey(d => d.IdEstadoOrden)
-                    .HasConstraintName("FK_Orden_EstadoOrden");
 
                 entity.HasOne(d => d.Usuario)
                     .WithMany(p => p.Ordenes)
@@ -225,7 +174,7 @@ namespace GEEK.Data
             modelBuilder.Entity<Producto>(entity =>
             {
                 entity.HasKey(e => e.IdProducto)
-                    .HasName("PK__Producto__07F4A1329A87DF85");
+                    .HasName("PK__Producto");
 
                 entity.ToTable("Producto");
 
@@ -248,16 +197,15 @@ namespace GEEK.Data
                     .HasColumnType("decimal(10, 2)")
                     .HasColumnName("descuento");
 
+                entity.Property(e => e.EstadoProducto)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("estadoProducto");
+
                 entity.Property(e => e.IdCategoria)
                     .HasMaxLength(5)
                     .IsUnicode(false)
                     .HasColumnName("idCategoria")
-                    .IsFixedLength();
-
-                entity.Property(e => e.IdEstado)
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .HasColumnName("idEstado")
                     .IsFixedLength();
 
                 entity.Property(e => e.IdMarca)
@@ -282,11 +230,6 @@ namespace GEEK.Data
                     .HasForeignKey(d => d.IdCategoria)
                     .HasConstraintName("FK_Producto_Categoria");
 
-                entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.IdEstado)
-                    .HasConstraintName("FK_Producto_Estado");
-
                 entity.HasOne(d => d.Marca)
                     .WithMany(p => p.Productos)
                     .HasForeignKey(d => d.IdMarca)
@@ -300,7 +243,7 @@ namespace GEEK.Data
                         r => r.HasOne<Producto>().WithMany().HasForeignKey("IdProducto").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ProductoImagen_Producto"),
                         j =>
                         {
-                            j.HasKey("IdProducto", "IdImagen").HasName("PK__Producto__795D06214F0DF451");
+                            j.HasKey("IdProducto", "IdImagen").HasName("PK__Producto__Imagen");
 
                             j.ToTable("ProductoImagen");
 
@@ -313,7 +256,7 @@ namespace GEEK.Data
             modelBuilder.Entity<Rol>(entity =>
             {
                 entity.HasKey(e => e.IdRol)
-                    .HasName("PK__Rol__3C872F7625E6BB0F");
+                    .HasName("PK__Rol");
 
                 entity.ToTable("Rol");
 
@@ -332,11 +275,11 @@ namespace GEEK.Data
             modelBuilder.Entity<Usuario>(entity =>
             {
                 entity.HasKey(e => e.IdUsuario)
-                    .HasName("PK__Usuario__645723A6F4C2F037");
+                    .HasName("PK__Usuario");
 
                 entity.ToTable("Usuario");
 
-                entity.HasIndex(e => e.Email, "UQ__Usuario__AB6E61640D72C261")
+                entity.HasIndex(e => e.Email, "UQ__Usuario__Email")
                     .IsUnique();
 
                 entity.Property(e => e.IdUsuario)

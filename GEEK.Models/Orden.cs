@@ -5,15 +5,17 @@ namespace GEEK.Models
 {
     public partial class Orden
     {
+        public Orden()
+        {
+            DetalleOrden = new HashSet<DetalleOrden>();
+        }
+
         public string IdOrden { get; set; } = null!;
-        public string? IdCarrito { get; set; }
         public string? IdUsuario { get; set; }
-        public string? IdEstadoOrden { get; set; }
-        public int? Cantidad { get; set; }
+        public string? EstadoOrden { get; set; }
         public DateTime FechaCreacion { get; set; }
 
-        public virtual Carrito? Carrito { get; set; }
-        public virtual EstadoOrden? EstadoOrden { get; set; }
+        public virtual ICollection<DetalleOrden> DetalleOrden { get; set; }
         public virtual Usuario? Usuario { get; set; }
     }
 }

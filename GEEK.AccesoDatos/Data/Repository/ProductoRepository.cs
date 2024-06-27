@@ -32,7 +32,7 @@ namespace BlogCore.AccesoDatos.Data.Repository
             objDesdeDb.Descuento = producto.Descuento;
             objDesdeDb.IdMarca = producto.IdMarca;
             objDesdeDb.IdCategoria = producto.IdCategoria;
-            objDesdeDb.IdEstado = producto.IdEstado;
+            objDesdeDb.EstadoProducto = producto.EstadoProducto;
 
             //_db.SaveChanges();
         }
