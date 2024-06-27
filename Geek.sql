@@ -52,12 +52,6 @@ CREATE TABLE Categoria
 )
 go
 
-CREATE TABLE EstadoProducto
-(
-	idEstado 		CHAR(5)		 PRIMARY KEY,
-	nombreEstado	VARCHAR(50)	 NOT NULL
-)
-go
 
 CREATE TABLE Producto 
 (
@@ -70,10 +64,9 @@ CREATE TABLE Producto
 	descuento			DECIMAL(10, 2),
     idMarca				CHAR(5),
     idCategoria			CHAR(5),
-	idEstado 			CHAR(5)	
+	estadoProducto		VARCHAR(50)	
     CONSTRAINT FK_Producto_Marca FOREIGN KEY (idMarca) REFERENCES Marca(idMarca),
     CONSTRAINT FK_Producto_Categoria FOREIGN KEY (idCategoria) REFERENCES Categoria(idCategoria),
-	CONSTRAINT FK_Producto_Estado FOREIGN KEY (idEstado) REFERENCES EstadoProducto(idEstado)
 )
 go
 
@@ -93,34 +86,26 @@ CREATE TABLE ProductoImagen (
 )
 go
 
-CREATE TABLE Carrito (
-    idCarrito		CHAR(5)		PRIMARY KEY,
-	idProducto		CHAR(5),
-	idUsuario		CHAR(5),
-	cantidad		INT			DEFAULT 1,
-	CONSTRAINT FK_Carrito_Producto FOREIGN KEY (idProducto) REFERENCES Producto(idProducto),
-	CONSTRAINT FK_Carrito_Usuario FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
-)
-go
-
-CREATE TABLE EstadoOrden
-(
-	idEstadoOrden 		CHAR(5)		 PRIMARY KEY,
-	nombreEstadoOrden	VARCHAR(50)	 NOT NULL
-)
-go
-
 CREATE TABLE Orden 
 (
     idOrden				CHAR(5)    PRIMARY KEY,
-    idCarrito			CHAR(5),
     idUsuario			CHAR(5),
-	idEstadoOrden 		CHAR(5),
-    cantidad			INT			DEFAULT	1,
+	estadoOrden 		CHAR(5),
 	fechaCreacion	    DATETIME	NOT NULL		DEFAULT		GETDATE(),
-    CONSTRAINT FK_Orden_Carrito FOREIGN KEY (idCarrito) REFERENCES Carrito(idCarrito),
     CONSTRAINT FK_Orden_Usuario FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario),
-	CONSTRAINT FK_Orden_EstadoOrden FOREIGN KEY (idEstadoOrden) REFERENCES EstadoOrden(idEstadoOrden)
+)
+go
+
+CREATE TABLE DetalleOrden (
+    idOrden			CHAR(5),
+	idProducto		CHAR(5),
+	idUsuario		CHAR(5),
+	cantidad		INT			DEFAULT 1,
+	precio			FLOAT,
+	PRIMARY KEY(idOrden,idProducto),
+	CONSTRAINT FK_DetalleOrden_Producto FOREIGN KEY (idProducto) REFERENCES Producto(idProducto),
+	CONSTRAINT FK_DetalleOrden_Usuario FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario),
+	CONSTRAINT FK_DetalleOrden_Orden FOREIGN KEY (idOrden) REFERENCES Orden(idOrden)
 )
 go
 
