@@ -9,7 +9,7 @@ namespace BlogCore.AccesoDatos.Data.Repository.IRepository
 {
     public interface IRepository<T> where T : class
     {
-        T Get(int id);
+        T Get(string id);
 
 
         IEnumerable<T> GetAll(

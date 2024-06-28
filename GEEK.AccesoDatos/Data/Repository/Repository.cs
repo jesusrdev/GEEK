@@ -27,7 +27,7 @@ namespace BlogCore.AccesoDatos.Data.Repository
             dbSet.Add(entity);
         }
 
-        public T Get(int id)
+        public T Get(string id)
         {
             return dbSet.Find(id);
         }
