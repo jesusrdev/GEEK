@@ -6,18 +6,18 @@
 }
 
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
@@ -71,4 +71,101 @@ nav {
     border-radius: 10px;
     text-transform: uppercase;
     padding-inline: 15px !important;
+}
+
+
+/*Boton naranja*/
+
+.btn-orange {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: white !important;
+    background-color: var(--color-primary) !important;
+    border-radius: 10px;
+    text-transform: uppercase;
+    padding: 15px 20px !important;
+    width: fit-content;
+}
+
+
+/*Slider*/
+
+
+#carouselHome .carousel-inner {
+    max-height: calc(100vh - 50px);
+    overflow-y: hidden
+}
+
+
+@media (width > 768px) {
+    #carouselHome .carousel-inner .slider {
+        height: clamp(90vh,100vh - 50px,1200px) !important;
+    }
+}
+
+
+#carouselHome .carousel-item .description {
+    font-family: "Poppins", sans-serif;
+    padding: 30px 8vw;
+    /*height: 100%;*/
+    display: flex;
+    flex-direction: column !important;
+    gap: 18px;
+    justify-content: center;
+}
+
+    #carouselHome .carousel-item .description h2 {
+        font-weight: 600;
+        font-size: clamp(45px,6vw,90px);
+    }
+
+@media (width < 768px) {
+    #carouselHome .carousel-item .description p {
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Number of lines to show */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+
+#carouselHome .carousel-item .producto {
+    background: linear-gradient(#D9D9D9 0%, #FA7515 100%);
+    /*height: 100%;*/
+    padding: 30px 8vw;
+    display: flex;
+    flex-direction: column !important;
+    gap: 18px;
+    justify-content: center;
+    align-items: center;
+}
+
+    #carouselHome .carousel-item .producto img {
+        object-fit: contain;
+    }
+
+@media (width < 768px) {
+    #carouselHome .carousel-item .producto img {
+        max-width: 350px;
+    }
+}
+
+#carouselHome .carousel-item .producto p {
+    font-family: "Montserrat", sans-serif;
+    font-size: 38px;
+    font-weight: 500;
+    text-align: center;
+}
+
+#carouselHome .carousel-item .producto span {
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: white;
+}
+
+
+.carousel-control-prev, .carousel-control-next {
+    width: 40px;
+    margin: 2vw;
 }
