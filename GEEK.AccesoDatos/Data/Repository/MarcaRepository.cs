@@ -20,6 +20,29 @@ namespace BlogCore.AccesoDatos.Data.Repository
             _db = db;
         }
 
+        public string GenerarIdMarca()
+        {
+            // Obtiene el ultimo id
+            var ultimoId = _db.Marca
+                        .Select(c => c.IdMarca)
+                        .OrderByDescending(id => id)
+                        .FirstOrDefault();
+            // Calcular el nuevo número ID
+            var nuevoNumeroId = 1;
+
+
+            if (ultimoId != null)
+            {
+                if (int.TryParse(ultimoId.Substring(2), out int ultimoNumeroID))
+                {
+                    nuevoNumeroId = ultimoNumeroID + 1;
+                }
+            }
+
+            // Generar el nuevo ID en formato "PRnnn"
+            return $"MA{nuevoNumeroId:D3}";
+        }
+
         public IEnumerable<SelectListItem> GetListaMarcas()
         {
             return _db.Marca.Select(i => new SelectListItem()

@@ -14,5 +14,6 @@ namespace GEEK.AccesoDatos.Data.Repository.IRepository
         void Update(Marca marca);
 
         IEnumerable<SelectListItem> GetListaMarcas();
+        string GenerarIdMarca();
     }
 }
