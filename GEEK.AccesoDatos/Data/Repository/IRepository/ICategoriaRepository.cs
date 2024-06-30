@@ -11,8 +11,11 @@ namespace GEEK.AccesoDatos.Data.Repository.IRepository
 {
     public interface ICategoriaRepository : IRepository<Categoria>
     {
+        void Create(Categoria categoria);   
         void Update(Categoria categoria);
 
         IEnumerable<SelectListItem> GetListaCategorias();
+
+        string GenerarIdCategoria();
     }
 }
