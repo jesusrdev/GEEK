@@ -1,4 +1,4 @@
-﻿using BlogCore.AccesoDatos.Data.Repository.IRepository;
+﻿using GEEK.AccesoDatos.Data.Repository.IRepository;
 using GEEK.Models;
 using GEEK.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
