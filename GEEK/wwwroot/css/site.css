@@ -142,6 +142,7 @@ nav {
 
     #carouselHome .carousel-item .producto img {
         object-fit: contain;
+        max-width: 50vh;
     }
 
 @media (width < 768px) {
@@ -168,4 +169,16 @@ nav {
 .carousel-control-prev, .carousel-control-next {
     width: 40px;
     margin: 2vw;
+}
+
+
+
+
+.mas-vendidos {
+    font-family: "Poppins", sans-serif;
+}
+
+.mas-vendidos label {
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
