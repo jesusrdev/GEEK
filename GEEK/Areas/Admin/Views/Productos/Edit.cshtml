@@ -1,0 +1,151 @@
+﻿@model GEEK.Models.ViewModels.ProductoVM
+
+@{
+    ViewData["Title"] = "Crear Producto";
+}
+
+
+<br />
+<br />
+
+<h3 class="text-center">Crear un nuevo Producto</h3>
+
+<form enctype="multipart/form-data" method="post" asp-action="Edit">
+    <div class="row px-2 offset-1 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="col-10 offset-1 mt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Producto.IdProducto"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Producto.IdProducto" class="form-control" readonly />
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Producto.NombreProducto"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Producto.NombreProducto" class="form-control" placeholder="Nombre Producto" />
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Producto.Precio"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Producto.Precio" class="form-control" placeholder="Precio Producto" />
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Producto.StockProducto"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Producto.StockProducto" class="form-control" placeholder="Stock Producto" />
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Producto.Descuento"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Producto.Descuento" class="form-control" placeholder="Descuento" />
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label for="Categoria">Categoria</label>
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m => m.Producto.IdCategoria, Model.ListaCategorias,
+                             "-Por favor seleccione una categoria-", new { @class = "form-control form-select" })
+                    <span asp-validation-for="Producto.IdCategoria" class="text-danger"></span>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label for="Marcas">Marcas</label>
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m => m.Producto.IdMarca, Model.ListaMarcas,
+                             "-Por favor seleccione una marca-", new { @class = "form-control form-select" })
+                    <span asp-validation-for="Producto.IdMarca" class="text-danger"></span>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Producto.Descripcion"></label>
+                </div>
+                <div class="col-8">
+                    <textarea asp-for="Producto.Descripcion" class="form-control" placeholder="Descripcion">
+
+                    </textarea>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Producto.DescripcioGeneral"></label>
+                </div>
+                <div class="col-8">
+                    <textarea asp-for="Producto.DescripcioGeneral" class="form-control" placeholder="Descripcion General">
+
+                    </textarea>
+                </div>
+            </div>
+
+
+            <br />
+
+            <div class="form-goup-row">
+                <div class="row mb-3 mt-1">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary form-control">Editar</button>
+                    </div>
+                    &nbsp;
+                    <div class="col">
+                        <a asp-action="Index" class="btn btn-success form-control">Volver atras</a>
+                    </div>
+                    &nbsp;
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary form-control">Editar Imagenes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

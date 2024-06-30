@@ -1,0 +1,43 @@
+﻿@model GEEK.Models.Producto
+
+@{
+    ViewData["Title"] = "Detalles del Producto";
+}
+
+<div class="container">
+    <h2 class="text-primary">Detalles del Producto</h2>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ID:</dt>
+        <dd class="col-sm-10">@Model.IdProducto</dd>
+
+        <dt class="col-sm-2">Nombre:</dt>
+        <dd class="col-sm-10">@Model.NombreProducto</dd>
+
+        <dt class="col-sm-2">Precio:</dt>
+        <dd class="col-sm-10">@Model.Precio</dd>
+
+        <dt class="col-sm-2">Marca:</dt>
+        <dd class="col-sm-10">@Model.Marca.NombreMarca</dd>
+
+        <dt class="col-sm-2">Categoría:</dt>
+        <dd class="col-sm-10">@Model.Categoria.DescripcionCategoria</dd>
+
+        <dt class="col-sm-2">Descripción:</dt>
+        <dd class="col-sm-10">@Model.Descripcion</dd>
+
+        <dt class="col-sm-2">Descripción General:</dt>
+        <dd class="col-sm-10">@Model.DescripcioGeneral</dd>
+
+        <dt class="col-sm-2">Stock:</dt>
+        <dd class="col-sm-10">@Model.StockProducto</dd>
+
+        <dt class="col-sm-2">Descuento:</dt>
+        <dd class="col-sm-10">@Model.Descuento</dd>
+    </dl>
+
+    <div class="col">
+        <a asp-action="Index" class="btn btn-success form-control">Volver atras</a>
+    </div>
+</div>
+
