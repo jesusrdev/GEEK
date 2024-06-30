@@ -2,7 +2,60 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Hola Kevin, te toca chambear</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="mas-vendidos text-center">
+    <h2 class="text-center my-5">-Mas Vendidos-</h2>
+    <div class="row row-cols-5 mx-auto px-3 flex-wrap align-content-center justify-content-center">
+        <div class="col px-2 ">
+            <input type="radio" class="btn-check col " name="options" id="ratones" value="ratones" autocomplete="off" checked>
+            <label class="btn btn-outline-dark w-100" for="ratones">Ratones</label>
+        </div>
+        <div class="col px-2">
+            <input type="radio" class="btn-check col" name="options" id="teclados" value="teclados" autocomplete="off">
+            <label class="btn btn-outline-dark w-100" for="teclados">Teclados</label>
+        </div>
+        <div class="col px-2">
+            <input type="radio" class="btn-check col" name="options" id="monitores" value="monitores" autocomplete="off">
+            <label class="btn btn-outline-dark w-100" for="monitores">Monitores</label>
+        </div>
+        <div class="col px-2">
+            <input type="radio" class="btn-check col" name="options" id="sillas" value="sillas" autocomplete="off">
+            <label class="btn btn-outline-dark w-100" for="sillas">Sillas Gamer</label>
+        </div>
+        <div class="col px-2">
+            <input type="radio" class="btn-check col" name="options" id="tarjetas" value="tarjetas" autocomplete="off">
+            <label class="btn btn-outline-dark w-100" for="tarjetas">Tarjetas Gráficas</label>
+        </div>
+    </div>
 </div>
+
+
+<div class="mas-vendidos-container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4  m-3">
+        <div class="col px-2 pb-4">
+            <a asp-area="Cliente" asp-controller="Productos" asp-action="Details" class="card">
+                <span class="descuento">20%</span>
+                <img src="~/imagenes/statics/teclado1.png" class="card-img-top p-4" alt="teclado">
+                <div class="card-body">
+                    <h5 class="card-title">Redragon FIZZ PRO White</h5>
+                    <div class="row justify-content-between">
+                        <p class="col">S/ 239.00   <del>S/ 299.00</del></p>
+                        <div class="col">
+                            <btn type="button" class="btn btn-dark rounded-circle">➚</btn>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("input[name='options']").change(function () {
+            var categoria = $(`input[name='options']:checked`).val();
+            console.log(categoria);
+        })
+    })
+</script>
