@@ -1,0 +1,85 @@
+﻿
+
+.login {
+    /*height: clamp(500px, 100vh - 100px, 1200px);*/
+    max-height: calc(100vh - 55px)
+}
+
+
+    .login form {
+        font-family: "Poppins", sans-serif;
+        height: 100%;
+        /*padding: 30px 0;*/
+        max-width: fit-content;
+        margin-inline: auto;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+        .login form h2 {
+            font-weight: 800;
+            font-size: 40px;
+        }
+
+        .login form .information {
+            text-decoration: none;
+            font-family: "Montserrat", sans-serif;
+            color: #818080;
+            margin: 25px 0px;
+        }
+
+        .login form .form-label {
+            font-weight: 600;
+            padding: 6px 0;
+            margin: 0;
+        }
+
+        .login form .form-control {
+            margin-bottom: 8px;
+            border-radius: 10px;
+            padding: 10px 15px;
+        }
+
+            .login form .form-control:focus {
+                border-color: var(--color-primary) !important;
+                box-shadow: 0 0 0 .25rem #FA751544
+            }
+
+        .login form #login-submit, .login form #registerSubmit {
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+            color: white !important;
+            background-color: var(--color-primary) !important;
+            border-radius: 10px;
+            text-transform: uppercase;
+            padding: 10px 30px !important;
+            width: fit-content;
+            margin: 20px;
+        }
+
+            .login form #login-submit, .login form #registerSubmit:hover {
+                opacity: 0.85;
+            }
+
+        .login form .enlaces a {
+            text-decoration: none;
+            font-family: "Montserrat", sans-serif;
+            color: #818080;
+        }
+
+        .login form .text-orange {
+            font-family: "Poppins", sans-serif;
+            font-weight: 800;
+            color: var(--color-primary);
+        }
+
+    .login .img-container {
+        /*max-width: 600px;*/
+    }
+
+
+        .login .img-container img {
+            object-fit: cover;
+            max-height: calc(100vh - 55px);
+            /*margin-left: -20px;*/
+        }

@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - GEEK</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/identity.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GEEK.styles.css" asp-append-version="true" />
 
 
@@ -20,7 +21,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 py-1 pb-2">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow py-1 pb-2">
             <div class="container-fluid py-0">
                 <a class="navbar-brand py-0" asp-area="" asp-controller="Home" asp-action="Index">GEEK</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -33,7 +34,7 @@
                             <a class="nav-link text-dark @ViewBag.IsHomeActive" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Cliente" asp-controller="Productos" asp-action="Index">Productos</a>
+                            <a class="nav-link text-dark @ViewBag.IsProductosActive" asp-area="Cliente" asp-controller="Productos" asp-action="Index">Productos</a>
                         </li>
                         @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Cliente" asp-controller="Ubicanos" asp-action="Index">Ubicanos</a>
@@ -42,7 +43,7 @@
                             <a class="nav-link text-dark" asp-area="Cliente" asp-controller="Soporte" asp-action="Index">Soporte</a>
                         </li> *@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Cliente" asp-controller="Nosotros" asp-action="Index">Nosotros</a>
+                            <a class="nav-link text-dark @ViewBag.IsNosotrosActive" asp-area="Cliente" asp-controller="Nosotros" asp-action="Index">Nosotros</a>
                         </li>
 
                         <li class="nav-item dropdown">
@@ -61,15 +62,59 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+    <div class="w-100">
+        @if (@ViewBag.IsHomeActive == "active")
+        {
+            <partial name="_SliderHomePartial" />
+            <partial name="_SliderMarcasPartial" />
+        }
+    </div>
+
+    <div class="">
+        <main role="main" class="">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - GEEK 
+    <footer class="bg-black text-white">
+        <div class="container row mx-auto justify-content-evenly gap-4 flex-wrap">
+            <div class="footer-section col">
+                <h5>Compañia</h5>
+                <ul>
+                    <li><a href="#">Nosotros</a></li>
+                    <li><a href="#">Nuestros Servicios</a></li>
+                    <li><a href="#">Nuestra vision</a></li>
+                    <li><a href="#">Afiliate</a></li>
+                </ul>
+            </div>
+            <div class="footer-section col">
+                <h5>Ayuda</h5>
+                <ul>
+                    <li><a href="#">Preguntas</a></li>
+                    <li><a href="#">Contáctanos</a></li>
+                    <li><a href="#">Soporte</a></li>
+                    <li><a href="#">Ubícanos</a></li>
+                </ul>
+            </div>
+            <div class="footer-section col">
+                <h5>Tienda</h5>
+                <ul>
+                    <li><a href="/Cliente/Productos/Index">Productos</a></li>
+                    <li><a href="/Cliente/Home/Index#multi-item-carousel">Marcas</a></li>
+                    <li><a href="/Cliente/Productos/Index">Modelos</a></li>
+                    <li><a href="/Cliente/Home/Index#masVendidos">Lo mas vendido</a></li>
+                </ul>
+            </div>
+            <div class="footer-section col" style="max-width: 130px;">
+                <h5>Síguenos</h5>
+                <div class="row row-cols-2" class="col">
+                    <i class="fa-brands fa-facebook" class="col"></i>
+                    <i class="fa-brands fa-instagram" class="col"></i>
+                    <i class="fa-brands fa-youtube"></i>
+                    <i class="fa-brands fa-square-x-twitter" class="col"></i>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
