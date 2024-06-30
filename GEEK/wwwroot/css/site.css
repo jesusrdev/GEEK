@@ -21,7 +21,6 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
     /*font-family: "Montserrat", sans-serif;*/
     /*font-family: "Inter", sans-serif;*/
     /*font-family: "Mulish", sans-serif;*/
@@ -296,4 +295,57 @@ nav {
     .mas-vendidos-container .card-body .btn-dark:hover {
         opacity: 0.85;
         cursor: pointer;
+    }
+
+
+
+
+
+
+/*Footer---------------------------------*/
+
+footer {
+    padding: 40px 30px;
+    font-family: "Montserrat", sans-serif;
+}
+
+footer .container {
+    border-bottom: 2px solid white;
+    padding: 15px 9px;
+}
+
+.footer-section {
+    max-width: fit-content;
+}
+
+.footer-section h5 {
+    border-bottom: 2px solid white;
+    font-weight: 800;
+    font-size: 17px;
+    width: fit-content;
+    padding-bottom: 9px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0px
+}
+
+.footer-section ul a {
+    text-decoration: none;
+    color: white;
+    padding: 5px 0px;
+    font-size: 13px;
+}
+
+    .footer-section ul a:hover {
+        text-decoration: underline;
+    }
+
+
+    .footer-section i {
+        /*width: 25%;*/
+        padding:3px;
+        margin: 6px 0px;
+        transform: scale(1.5) translateX(18px);
     }

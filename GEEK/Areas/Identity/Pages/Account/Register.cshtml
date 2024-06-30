@@ -28,7 +28,13 @@
             </div>
             <div class="text-center">
                 <button id="registerSubmit" type="submit" class=" btn btn-lg text-center">Register</button>
-
+            </div>
+            <div class="enlaces">
+                <p>
+                    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn-link btn">
+                        ¿Ya tienes una cuenta? <span class="text-orange">INICIAR SESIÓN</span>
+                    </a>
+                </p>
             </div>
         </form>
     </div>
