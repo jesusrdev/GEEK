@@ -1,5 +1,4 @@
-﻿using BlogCore.AccesoDatos.Data.Repository.IRepository;
-using GEEK.Models;
+﻿using GEEK.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -14,7 +13,7 @@ namespace GEEK.AccesoDatos.Data.Repository.IRepository
         void Create(Categoria categoria);   
         void Update(Categoria categoria);
 
-        IEnumerable<SelectListItem> GetListaCategorias();
+        public IEnumerable<SelectListItem> GetListaCategorias();
 
         string GenerarIdCategoria();
     }

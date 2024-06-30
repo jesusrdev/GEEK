@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogCore.AccesoDatos.Data.Repository
+namespace GEEK.AccesoDatos.Data.Repository
 {
     public class CategoriaRepository : Repository<Categoria>, ICategoriaRepository
     {
@@ -30,11 +30,13 @@ namespace BlogCore.AccesoDatos.Data.Repository
 
         public IEnumerable<SelectListItem> GetListaCategorias()
         {
-            return _db.Categoria.Select(i => new SelectListItem()
-            {
-                Text = i.DescripcionCategoria,
-                Value = i.IdCategoria.ToString()
-            });
+            return _db.Categoria
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IdCategoria,
+                    Text = c.DescripcionCategoria
+                })
+                .ToList();
         }
 
         public void Update(Categoria categoria)
@@ -65,7 +67,7 @@ namespace BlogCore.AccesoDatos.Data.Repository
             }
 
             // Generar el nuevo ID en formato "PRnnn"
-            return $"PR{nuevoNumeroId:D3}"; 
+            return $"CA{nuevoNumeroId:D3}"; 
         }
     }
 }

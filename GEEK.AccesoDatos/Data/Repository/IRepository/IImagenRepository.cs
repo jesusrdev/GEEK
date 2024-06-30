@@ -1,5 +1,4 @@
-﻿using BlogCore.AccesoDatos.Data.Repository.IRepository;
-using GEEK.Models;
+﻿using GEEK.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

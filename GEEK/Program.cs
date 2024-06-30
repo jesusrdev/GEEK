@@ -1,5 +1,5 @@
-using BlogCore.AccesoDatos.Data.Repository;
-using BlogCore.AccesoDatos.Data.Repository.IRepository;
+using GEEK.AccesoDatos.Data.Repository;
+using GEEK.AccesoDatos.Data.Repository.IRepository;
 using GEEK.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +20,6 @@ builder.Services.AddControllersWithViews();
 
 // Agregar contenedor de trabajo al contenedor IoC de inyeccion de dependencias
 builder.Services.AddScoped<IContenedorTrabajo, ContenedorTrabajo>();
-
 
 
 var app = builder.Build();
