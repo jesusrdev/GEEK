@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogCore.AccesoDatos.Data.Repository
+namespace GEEK.AccesoDatos.Data.Repository
 {
     public class ProductoRepository : Repository<Producto>, IProductoRepository
     {
@@ -20,6 +20,36 @@ namespace BlogCore.AccesoDatos.Data.Repository
             _db = db;
         }
 
+        public void Create(Producto producto)
+        {
+            producto.EstadoProducto = "A";
+            producto.IdProducto = GenerarIdProducto();
+            _db.Producto.Add(producto);
+            _db.SaveChanges();
+        }
+
+        public string GenerarIdProducto()
+        {
+            // Obtiene el ultimo id
+            var ultimoId = _db.Producto
+                        .Select(c => c.IdProducto)
+                        .OrderByDescending(id => id)
+                        .FirstOrDefault();
+            // Calcular el nuevo número ID
+            var nuevoNumeroId = 1;
+
+
+            if (ultimoId != null)
+            {
+                if (int.TryParse(ultimoId.Substring(2), out int ultimoNumeroID))
+                {
+                    nuevoNumeroId = ultimoNumeroID + 1;
+                }
+            }
+
+            // Generar el nuevo ID en formato "PRnnn"
+            return $"PR{nuevoNumeroId:D3}";
+        }
 
         public void Update(Producto producto)
         {

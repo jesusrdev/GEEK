@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogCore.AccesoDatos.Data.Repository
+namespace GEEK.AccesoDatos.Data.Repository
 {
     public class ImagenRepository : Repository<Imagen>, IImagenRepository
     {

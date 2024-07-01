@@ -2,13 +2,14 @@
 using GEEK.Data;
 using GEEK.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogCore.AccesoDatos.Data.Repository
+namespace GEEK.AccesoDatos.Data.Repository
 {
     public class MarcaRepository : Repository<Marca>, IMarcaRepository
     {
@@ -45,11 +46,13 @@ namespace BlogCore.AccesoDatos.Data.Repository
 
         public IEnumerable<SelectListItem> GetListaMarcas()
         {
-            return _db.Marca.Select(i => new SelectListItem()
-            {
-                Text = i.NombreMarca,
-                Value = i.IdMarca.ToString()
-            });
+            return _db.Marca
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IdMarca,
+                    Text = c.NombreMarca
+                })
+                .ToList();
         }
 
         public void Update(Marca marca)

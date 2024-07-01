@@ -1,5 +1,4 @@
-﻿using BlogCore.AccesoDatos.Data.Repository.IRepository;
-using GEEK.Models;
+﻿using GEEK.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ namespace GEEK.AccesoDatos.Data.Repository.IRepository
     {
         void Update(Marca marca);
 
-        IEnumerable<SelectListItem> GetListaMarcas();
+        public IEnumerable<SelectListItem> GetListaMarcas();
         string GenerarIdMarca();
     }
 }

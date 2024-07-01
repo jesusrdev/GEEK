@@ -1,4 +1,4 @@
-﻿using BlogCore.AccesoDatos.Data.Repository.IRepository;
+﻿using GEEK.AccesoDatos.Data.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogCore.AccesoDatos.Data.Repository
+namespace GEEK.AccesoDatos.Data.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
@@ -36,6 +36,7 @@ namespace BlogCore.AccesoDatos.Data.Repository
         {
             // Se crea una consulta IQueryable a partir del DbSet del contexto
             IQueryable<T> query = dbSet;
+
 
             if (filter != null)
             {

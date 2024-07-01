@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace GEEK.Models.ViewModels
 {
-    public class ProductoVM
+    public class HomeVM
     {
-        public Producto Producto { get; set; }
-        public IEnumerable<SelectListItem>? ListaCategorias { get; set; }
-        public IEnumerable<SelectListItem>? ListaMarcas { get; set; }
+        public IEnumerable<Producto>? Productos { get; set; }
+        public IEnumerable<Categoria>? Categorias { get; set; }
+        public IEnumerable<Marca>? Marcas { get; set; }
 
     }
 }
