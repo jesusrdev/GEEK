@@ -292,6 +292,14 @@ nav {
         max-width: fit-content;
     }
 
+    .mas-vendidos-container .card-body .btn-dark {
+        transform: rotate(-45deg);
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .mas-vendidos-container .card-body .btn-dark:hover {
         opacity: 0.85;
         cursor: pointer;
