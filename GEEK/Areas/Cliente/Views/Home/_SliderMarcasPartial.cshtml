@@ -7,7 +7,7 @@
                 @foreach (var marca in Model.Marcas)
                 {
                     <div class="col">
-                        <a asp-area="Cliente" asp-controller="Productos" asp-action="Index" asp-route-id="@marca.IdMarca">
+                        <a asp-area="Cliente" asp-controller="Productos" asp-action="Index" asp-route-idMarca="@marca.IdMarca">
                             <img src="@marca.RutaImagen" class="card-img-top" alt="@marca.NombreMarca">
                         </a>
                     </div>

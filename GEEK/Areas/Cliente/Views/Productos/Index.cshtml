@@ -1,4 +1,5 @@
-﻿@{
+﻿@model GEEK.Models.ViewModels.HomeVM
+@{
     ViewData["Title"] = "Productos";
 }
 
@@ -17,20 +18,23 @@
 <div class="px-2 py-2 mb-5">
     <div class="filtros row w-100 mx-auto justify-content-between align-items-center py-2">
         <div class="col-3 row">
-            <label class="col form-label">Marcas</label>
-            <select id="dropdownMarcas" class="form-control form-select col">
+            <label class="col-4 form-label" style="width:fit-content;">Marcas</label>
+            <select id="dropdownMarcas" name="dropdownMarcas" class="form-control form-select col">
                 <option value="todas">--Todas--</option>
-                <option value="azus">Azus</option>
-                <option value="redragon">Redragon</option>
-                <option value="corsair">Corrsair</option>
-                <option value="nvidia">Nvidia</option>
+                @foreach(var marca in Model.Marcas)
+                {
+                    if (marca.IdMarca.Equals(ViewData["idMarca"]))
+                    {
+                        <option value="@marca.IdMarca" selected>@marca.NombreMarca</option>
+                    } else {
+                        <option value="@marca.IdMarca">@marca.NombreMarca</option>
+                    }
+                }
             </select>
-            @* @Html.DropDownListFor(m => m.Articulo.CategoriaId, Model.ListaCategorias,
-            "-Por favor seleccione una categoria-", new { @class = "form-control form-select" }) *@
         </div>
         <div class="col-5 row">
             <p class="col mb-0">
-                Total: <spam id="totalProductos" class="">15 productos@* @model.Count() *@</spam>
+                Total: <span id="totalProductos" class="">@Model.Productos.Count() productos</span>
             </p>
 
         </div>
@@ -45,18 +49,13 @@
                 </button>
                 <div class="collapse" id="collapseExample">
                     <div class="card card-body">
-                        <div class="">
-                            <input type="checkbox" id="option1" value="" class="" name="option1" />
-                            <label for="option1">Teclados</label>
-                        </div>
-                        <div class="">
-                            <input type="checkbox" id="option2" value="" class="" name="option2" />
-                            <label for="option2">Ratones</label>
-                        </div>
-                        <div class="">
-                            <input type="checkbox" id="option3" value="" class="" name="option3" />
-                            <label for="option3">Sillas</label>
-                        </div>
+                        @foreach(var categoria in Model.Categorias)
+                        {
+                            <div class="">
+                                <input type="checkbox" id="@categoria.IdCategoria" value="@categoria.IdCategoria" class="" name="@categoria.IdCategoria" />
+                                <label for="@categoria.IdCategoria">@categoria.DescripcionCategoria</label>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

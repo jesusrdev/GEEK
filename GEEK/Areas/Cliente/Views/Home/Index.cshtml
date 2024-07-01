@@ -7,26 +7,29 @@
 <div id="masVendidos" class="mas-vendidos text-center">
     <h2 class="text-center my-5">-Mas Vendidos-</h2>
     <div class="row row-cols-5 mx-auto px-3 flex-wrap align-content-center justify-content-center">
-        <div class="col px-2 ">
-            <input type="radio" class="btn-check col " name="options" id="ratones" value="ratones" autocomplete="off" checked>
-            <label class="btn btn-outline-dark w-100" for="ratones">Ratones</label>
-        </div>
-        <div class="col px-2">
-            <input type="radio" class="btn-check col" name="options" id="teclados" value="teclados" autocomplete="off">
-            <label class="btn btn-outline-dark w-100" for="teclados">Teclados</label>
-        </div>
-        <div class="col px-2">
-            <input type="radio" class="btn-check col" name="options" id="monitores" value="monitores" autocomplete="off">
-            <label class="btn btn-outline-dark w-100" for="monitores">Monitores</label>
-        </div>
-        <div class="col px-2">
-            <input type="radio" class="btn-check col" name="options" id="sillas" value="sillas" autocomplete="off">
-            <label class="btn btn-outline-dark w-100" for="sillas">Sillas Gamer</label>
-        </div>
-        <div class="col px-2">
-            <input type="radio" class="btn-check col" name="options" id="tarjetas" value="tarjetas" autocomplete="off">
-            <label class="btn btn-outline-dark w-100" for="tarjetas">Tarjetas Gráficas</label>
-        </div>
+        @{
+            int count = 0;
+        }
+        @foreach (var categoria in Model.Categorias)
+        {
+            if (count == 0)
+            {
+                <div class="col px-2 ">
+                    <input type="radio" class="btn-check col " name="categorias" id="@categoria.IdCategoria" value="@categoria.IdCategoria" autocomplete="off" checked>
+                    <label class="btn btn-outline-dark w-100" for="@categoria.IdCategoria">@categoria.DescripcionCategoria</label>
+                </div>
+            }
+            else
+            {
+                <div class="col px-2 ">
+                    <input type="radio" class="btn-check col " name="categorias" id="@categoria.IdCategoria" value="@categoria.IdCategoria" autocomplete="off">
+                    <label class="btn btn-outline-dark w-100" for="@categoria.IdCategoria">@categoria.DescripcionCategoria</label>
+                </div>
+            }
+
+            count++;
+
+        }
     </div>
 </div>
 
