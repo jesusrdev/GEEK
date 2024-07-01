@@ -2,6 +2,7 @@
 using GEEK.Data;
 using GEEK.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,22 @@ namespace GEEK.AccesoDatos.Data.Repository
 
             // Generar el nuevo ID en formato "PRnnn"
             return $"PR{nuevoNumeroId:D3}";
+        }
+
+        public IEnumerable<SelectListItem> GetListaProductos()
+        {
+            return _db.Producto.Where(p => p.EstadoProducto == "A")
+                    .Select(c => new SelectListItem
+                    {
+                        Value = c.IdProducto,
+                        Text = c.NombreProducto
+                    })
+                    .ToList();
+        }
+
+        public IEnumerable<Producto> GetProductosActivos()
+        {
+            return _db.Producto.Where(p => p.EstadoProducto == "A").ToList();
         }
 
         public void Update(Producto producto)

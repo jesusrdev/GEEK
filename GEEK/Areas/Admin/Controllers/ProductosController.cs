@@ -35,6 +35,17 @@ namespace GEEK.Areas.Admin.Controllers
                 return NotFound();
             }
 
+
+            var imagenes = _contenedorTrabajo.Imagen.GetAll(filter: img => img.IdProducto == id).ToList();
+
+            var productoVM = new ProductoVM
+            {
+                Producto = producto,
+                ListaCategorias = _contenedorTrabajo.Categoria.GetListaCategorias(),
+                ListaMarcas = _contenedorTrabajo.Marca.GetListaMarcas(),
+                Imagenes = imagenes  
+            };
+
             return View(producto);
         }
 

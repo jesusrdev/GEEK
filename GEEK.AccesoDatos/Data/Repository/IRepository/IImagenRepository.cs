@@ -10,5 +10,6 @@ namespace GEEK.AccesoDatos.Data.Repository.IRepository
     public interface IImagenRepository : IRepository<Imagen>
     {
         void Update(Imagen imagen);
+        string GenerarIdImagen();
     }
 }

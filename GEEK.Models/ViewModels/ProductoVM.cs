@@ -15,6 +15,7 @@ namespace GEEK.Models.ViewModels
         public Producto Producto { get; set; }
         public IEnumerable<SelectListItem>? ListaCategorias { get; set; }
         public IEnumerable<SelectListItem>? ListaMarcas { get; set; }
+        public List<Imagen> Imagenes { get; set; }
 
     }
 }

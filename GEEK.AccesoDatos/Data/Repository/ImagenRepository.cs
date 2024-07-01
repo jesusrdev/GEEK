@@ -20,6 +20,28 @@ namespace GEEK.AccesoDatos.Data.Repository
             _db = db;
         }
 
+        public string GenerarIdImagen()
+        {
+            // Obtiene el ultimo id
+            var ultimoId = _db.Imagen
+                        .Select(c => c.IdImagen)
+                        .OrderByDescending(id => id)
+                        .FirstOrDefault();
+            // Calcular el nuevo número ID
+            var nuevoNumeroId = 1;
+
+
+            if (ultimoId != null)
+            {
+                if (int.TryParse(ultimoId.Substring(2), out int ultimoNumeroID))
+                {
+                    nuevoNumeroId = ultimoNumeroID + 1;
+                }
+            }
+
+            // Generar el nuevo ID en formato "PRnnn"
+            return $"IM{nuevoNumeroId:D3}";
+        }
 
         public void Update(Imagen imagen)
         {

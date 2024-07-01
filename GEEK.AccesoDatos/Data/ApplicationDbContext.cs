@@ -109,6 +109,17 @@ namespace GEEK.Data
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("rutaImagen");
+
+                entity.Property(e => e.IdProducto)
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("idProducto")
+                    .IsFixedLength();
+
+                entity.HasOne(d => d.Producto)
+                    .WithMany(p => p.Imagenes)
+                    .HasForeignKey(d => d.IdProducto)
+                    .HasConstraintName("FK_Producto_Imagen");
             });
 
             modelBuilder.Entity<Marca>(entity =>
@@ -235,22 +246,6 @@ namespace GEEK.Data
                     .HasForeignKey(d => d.IdMarca)
                     .HasConstraintName("FK_Producto_Marca");
 
-                entity.HasMany(d => d.Imagenes)
-                    .WithMany(p => p.Productos)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "ProductoImagen",
-                        l => l.HasOne<Imagen>().WithMany().HasForeignKey("IdImagen").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ProductoImagen_ImagenProducto"),
-                        r => r.HasOne<Producto>().WithMany().HasForeignKey("IdProducto").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ProductoImagen_Producto"),
-                        j =>
-                        {
-                            j.HasKey("IdProducto", "IdImagen").HasName("PK__Producto__Imagen");
-
-                            j.ToTable("ProductoImagen");
-
-                            j.IndexerProperty<string>("IdProducto").HasMaxLength(5).IsUnicode(false).HasColumnName("idProducto").IsFixedLength();
-
-                            j.IndexerProperty<string>("IdImagen").HasMaxLength(5).IsUnicode(false).HasColumnName("idImagen").IsFixedLength();
-                        });
             });
 
             modelBuilder.Entity<Rol>(entity =>

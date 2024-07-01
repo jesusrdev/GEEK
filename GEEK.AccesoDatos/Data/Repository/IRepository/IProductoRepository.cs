@@ -1,4 +1,5 @@
 ﻿using GEEK.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace GEEK.AccesoDatos.Data.Repository.IRepository
         void Create(Producto producto);
         void Update(Producto producto);
         string GenerarIdProducto();
+        public IEnumerable<SelectListItem> GetListaProductos();
     }
 }
