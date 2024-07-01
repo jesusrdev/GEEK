@@ -196,10 +196,17 @@ nav {
         overflow-y: hidden;
     }
 
+    #multi-item-carousel .carousel-item a {
+        height: 100%;
+        width: 100%;
+        margin-inline: auto;
+    }
+
     #multi-item-carousel .carousel-item img {
         object-fit: contain;
         object-position: top;
         max-width: 150px;
+        max-height: 90px;
         margin-inline: auto;
     }
 
