@@ -8,16 +8,16 @@
 <br />
 <br />
 
-<h3 class="text-center">Crear una nueva Marca</h3>
+<h3 class="text-center text-orange">Crear una nueva Marca</h3>
 
-<form enctype="multipart/form-data" method="post" asp-action="Create">
-    <div class="row px-2 offset-1 border">
+<form enctype="multipart/form-data" method="post" asp-action="Create"  class="row margen">
+    <div class="row px-2 mx-auto border border-form col-md-6">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="col-10 offset-1 mt-4">
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="IdMarca"></label>
+                    <label class="text-orange" asp-for="IdMarca"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="IdMarca" class="form-control" readonly />
@@ -29,10 +29,10 @@
 
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="NombreMarca"></label>
+                    <label asp-for="NombreMarca" class="text-orange"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="NombreMarca" class="form-control" placeholder="Descripcion Categoria" />
+                    <input asp-for="NombreMarca" class="form-control" placeholder="Nombre Marca" />
                 </div>
             </div>
 
@@ -40,7 +40,7 @@
 
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="RutaImagen"></label>
+                    <label class="text-orange" asp-for="RutaImagen"></label>
                 </div>
                 <div class="col-8">
                     <input asp-for="RutaImagen" type="file" class="form-control" />
@@ -52,11 +52,11 @@
             <div class="form-goup-row">
                 <div class="row mb-3 mt-1">
                     <div class="col">
-                        <button type="submit" class="btn btn-primary form-control">Crear</button>
+                        <button type="submit" class="btn btn-outline-orange form-control">Crear</button>
                     </div>
                     &nbsp;
                     <div class="col">
-                        <a asp-action="Index" class="btn btn-success form-control">Volver atras</a>
+                        <a asp-action="Index" class="btn btn-outline-orange form-control">Volver atras</a>
                     </div>
                 </div>
             </div>
