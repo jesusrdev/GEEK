@@ -27,11 +27,11 @@
 
             <div class="form-group row">
                 <div class="col-4">
-                    <label for="Producto">Producto</label>
-                </div>
+                    @Html.LabelFor(model => model.IdProducto)
+                </div>    
                 <div class="col-8">
-                    @Html.DropDownListFor(m => m.IdProducto, Model.ListaProductos, "-Seleccione un Producto a asignar-", new { @class = "form-control form-select" })
-                    <span asp-validation-for="IdProducto" class="text-danger"></span>
+                    @Html.DropDownListFor(model => model.IdProducto, Model.ListaProductos, "Seleccione un producto", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdProducto, "", new { @class = "text-danger" })
                 </div>
             </div>
 

@@ -14,13 +14,24 @@
     <div class="row px-2 offset-1 border">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+        @* Mostrar mensajes de error generales *@
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <p>@error.ErrorMessage</p>
+                }
+            </div>
+        }
+
         <div class="col-10 offset-1 mt-4">
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Producto.IdProducto"></label>
+                    <label asp-for="IdProducto"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Producto.IdProducto" class="form-control" readonly />
+                    <input asp-for="IdProducto" class="form-control" readonly />
                 </div>
             </div>
 
@@ -28,10 +39,10 @@
 
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Producto.NombreProducto"></label>
+                    <label asp-for="NombreProducto"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Producto.NombreProducto" class="form-control" placeholder="Nombre Producto" />
+                    <input asp-for="NombreProducto" class="form-control" placeholder="Nombre Producto" />
                 </div>
             </div>
 
@@ -39,10 +50,10 @@
 
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Producto.Precio"></label>
+                    <label asp-for="Precio"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Producto.Precio" class="form-control" placeholder="Precio Producto" />
+                    <input asp-for="Precio" class="form-control" placeholder="Precio Producto" />
                 </div>
             </div>
 
@@ -50,10 +61,10 @@
 
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Producto.StockProducto"></label>
+                    <label asp-for="StockProducto"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Producto.StockProducto" class="form-control" placeholder="Stock Producto" />
+                    <input asp-for="StockProducto" class="form-control" placeholder="Stock Producto" />
                 </div>
             </div>
 
@@ -61,10 +72,10 @@
 
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Producto.Descuento"></label>
+                    <label asp-for="Descuento"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Producto.Descuento" class="form-control" placeholder="Descuento" />
+                    <input asp-for="Descuento" class="form-control" placeholder="Descuento" />
                 </div>
             </div>
 
@@ -75,9 +86,9 @@
                     <label for="Categoria">Categoria</label>
                 </div>
                 <div class="col-8">
-                    @Html.DropDownListFor(m => m.Producto.IdCategoria, Model.ListaCategorias,
+                    @Html.DropDownListFor(m => m.IdCategoria, Model.ListaCategorias,
                              "-Por favor seleccione una categoria-", new { @class = "form-control form-select" })
-                    <span asp-validation-for="Producto.IdCategoria" class="text-danger"></span>
+                    <span asp-validation-for="IdCategoria" class="text-danger"></span>
                 </div>
             </div>
 
@@ -88,9 +99,9 @@
                     <label for="Marcas">Marcas</label>
                 </div>
                 <div class="col-8">
-                    @Html.DropDownListFor(m => m.Producto.IdMarca, Model.ListaMarcas,
+                    @Html.DropDownListFor(m => m.IdMarca, Model.ListaMarcas,
                              "-Por favor seleccione una marca-", new { @class = "form-control form-select" })
-                    <span asp-validation-for="Producto.IdMarca" class="text-danger"></span>
+                    <span asp-validation-for="IdMarca" class="text-danger"></span>
                 </div>
             </div>
 
@@ -98,10 +109,10 @@
 
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Producto.Descripcion"></label>
+                    <label asp-for="Descripcion"></label>
                 </div>
                 <div class="col-8">
-                    <textarea asp-for="Producto.Descripcion" class="form-control" placeholder="Descripcion">
+                    <textarea asp-for="Descripcion" class="form-control" placeholder="Descripcion">
 
                     </textarea>
                 </div>
@@ -111,10 +122,10 @@
 
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Producto.DescripcioGeneral"></label>
+                    <label asp-for="DescripcioGeneral"></label>
                 </div>
                 <div class="col-8">
-                    <textarea id="Descripcion" asp-for="Producto.DescripcioGeneral" class="form-control" placeholder="Descripcion General">
+                    <textarea id="DescripcionGeneral" asp-for="DescripcioGeneral" class="form-control" placeholder="Descripcion General">
 
                     </textarea>
                 </div>
@@ -145,7 +156,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.2.0/tinymce.min.js" integrity="sha512-E2dqytT185qVoAL0sfqr39BLHEBQtmZze59ChMjYi4vRUW6BzIBLZAqErdQAAAJX8bkFq2kQgQL9Lbpm8Uuw0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         tinymce.init({
-            selector: '#Descripcion',
+            selector: '#DescripcionGeneral',
             plugins: 'lists',
             menubar: 'file edit format'
         })
