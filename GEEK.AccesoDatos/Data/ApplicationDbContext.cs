@@ -200,7 +200,7 @@ namespace GEEK.Data
                     .HasColumnName("descripcioGeneral");
 
                 entity.Property(e => e.Descripcion)
-                    .HasMaxLength(200)
+                    .HasMaxLength(400)
                     .IsUnicode(false)
                     .HasColumnName("descripcion");
 
