@@ -12,6 +12,8 @@ namespace GEEK.Models.ViewModels
 {
     public class HomeVM
     {
+        public Producto? Producto { get; set; }
+        public Imagen? ImagenP { get; set; }
         public IEnumerable<Producto>? Productos { get; set; }
         public IEnumerable<Categoria>? Categorias { get; set; }
         public IEnumerable<Marca>? Marcas { get; set; }
