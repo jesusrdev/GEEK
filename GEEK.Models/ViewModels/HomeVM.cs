@@ -15,6 +15,7 @@ namespace GEEK.Models.ViewModels
         public IEnumerable<Producto>? Productos { get; set; }
         public IEnumerable<Categoria>? Categorias { get; set; }
         public IEnumerable<Marca>? Marcas { get; set; }
+        public IEnumerable<Imagen>? Imagenes { get; set; }
 
     }
 }
