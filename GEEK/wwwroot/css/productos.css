@@ -51,7 +51,7 @@
     .filtros #collapseExample {
         width: fit-content; 
         position: absolute;
-        z-index: 5;
+        z-index: 10;
     }
 
     .filtros #collapseExample card {

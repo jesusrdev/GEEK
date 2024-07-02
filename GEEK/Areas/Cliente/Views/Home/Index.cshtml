@@ -35,6 +35,10 @@
 
 
 <div class="mas-vendidos-container">
+    <div id="loader" class="spinner-border text-primary d-none mx-auto d-block my-3" role="status">
+        <span class="sr-only ">Cargando...</span>
+    </div>
+
     <div id="containerProductos" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4  m-3">
        @*  @foreach (var producto in Model.Productos)
         {
@@ -66,6 +70,8 @@
             </div>
         } *@
     </div>
+
+    <a asp-area="Cliente" asp-controller="Productos" asp-action="Index" class="btn btn-orange mx-auto text-center d-block mb-5">Ver más Productos</a>
 </div>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -86,6 +92,10 @@
                 url: "/Cliente/Home/ObtenerProductosPorCategoria",
                 type: "GET",
                 data: { idCategoria : categoria },
+                beforeSend: function () {
+                    // Mostrar el loader antes de enviar la petición
+                    $('#loader').removeClass('d-none');
+                },
                 success: function (productos) {
 
                     var container = $("#containerProductos");
@@ -97,12 +107,12 @@
 
                         var card = `<div class='col px-2 pb-4'>
                             <a href='' asp-route-id='${producto.idProducto}' class='card'>
-                                <span class='descuento'>${producto.descuento * 100} %</span>
+                                <span class='descuento'>${producto.descuento} %</span>
                                         <img src='${producto.rutaImagen}' class='card-img-top p-4' alt='${producto.nombreProducto}'>
                                 <div class='card-body'>
                                     <h5 class='card-title'>${producto.nombreProducto}</h5>
                                     <div class='row justify-content-between'>
-                                        <p class='col'>S/ ${producto.Precio * (1 - producto.descuento)}   <del>S/ ${producto.precio}</del></p>
+                                        <p class='col'>S/ ${(producto.precio * (1 - producto.descuento / 100)).toFixed(2)}   <del>S/ ${producto.precio}</del></p>
                                         <div class='col'>
                                             <btn type='button' class='btn btn-dark rounded-circle'>
                                                 <i class='fa-solid fa-arrow-right'></i>
@@ -122,6 +132,10 @@
                             <p class="alert alert-secondary" role="alert">No hay productos en esta categoria<p>
                         `)
                     }
+                },
+                complete: function () {
+                    // Ocultar el loader cuando la petición se complete (éxito o error)
+                    $('#loader').addClass('d-none');
                 }
             })
         }

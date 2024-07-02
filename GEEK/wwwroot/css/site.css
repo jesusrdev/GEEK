@@ -115,15 +115,28 @@ nav {
 
     #carouselHome .carousel-item .description h2 {
         font-weight: 600;
-        font-size: clamp(45px,6vw,90px);
+        font-size: clamp(30px,6vw,70px);
+
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    #carouselHome .carousel-item .description ul {
+        display: -webkit-box;
+        -webkit-line-clamp: 8;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
 @media (width < 768px) {
-    #carouselHome .carousel-item .description p {
-        display: -webkit-box;
-        -webkit-line-clamp: 3; /* Number of lines to show */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+    #carouselHome .carousel-item .description h2 {
+        -webkit-line-clamp: 3;
+    }
+
+    #carouselHome .carousel-item .description ul {
+        -webkit-line-clamp: 4;
     }
 }
 
@@ -152,9 +165,14 @@ nav {
 
 #carouselHome .carousel-item .producto p {
     font-family: "Montserrat", sans-serif;
-    font-size: 38px;
+    font-size: 35px;
     font-weight: 500;
     text-align: center;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 #carouselHome .carousel-item .producto span {
