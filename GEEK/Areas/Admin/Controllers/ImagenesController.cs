@@ -29,7 +29,6 @@ namespace GEEK.Areas.Admin.Controllers
         {
             var nuevaImagen = new ImagenVM()
             {
-
                 IdImagen = _contenedorTrabajo.Imagen.GenerarIdImagen(),        
                 ListaProductos = _contenedorTrabajo.Producto.GetListaProductos()
             };

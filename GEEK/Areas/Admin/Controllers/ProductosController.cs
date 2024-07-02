@@ -28,36 +28,44 @@ namespace GEEK.Areas.Admin.Controllers
 
         public IActionResult Details(string id)
         {
-            var producto = _contenedorTrabajo.Producto.GetFirstOrDefault(p => p.IdProducto == id && p.EstadoProducto != "B", includeProperties: "Marca,Categoria");
+            var producto = _contenedorTrabajo.Producto.GetFirstOrDefault(
+                p => p.IdProducto == id && p.EstadoProducto != "B",
+                includeProperties: "Marca,Categoria");
 
             if (producto == null)
             {
                 return NotFound();
             }
 
-
-            var imagenes = _contenedorTrabajo.Imagen.GetAll(filter: img => img.IdProducto == id).ToList();
+            var imagenes = _contenedorTrabajo.Imagen.GetAll(img => img.IdProducto == id).ToList();
 
             var productoVM = new ProductoVM
             {
-                Producto = producto,
+                IdProducto = producto.IdProducto,
+                NombreProducto = producto.NombreProducto,
+                Descripcion = producto.Descripcion,
+                DescripcioGeneral = producto.DescripcioGeneral,
+                Precio = producto.Precio,
+                StockProducto = producto.StockProducto,
+                Descuento = producto.Descuento,
+                IdMarca = producto.IdMarca,
+                IdCategoria = producto.IdCategoria,
+                EstadoProducto = producto.EstadoProducto,
                 ListaCategorias = _contenedorTrabajo.Categoria.GetListaCategorias(),
                 ListaMarcas = _contenedorTrabajo.Marca.GetListaMarcas(),
                 Imagenes = imagenes  
             };
 
-            return View(producto);
+            return View(producto); 
         }
+
 
         [HttpGet]
         public IActionResult Create()
         {
             var nuevaProducto = new ProductoVM()
             {
-                Producto = new Producto
-                {
-                    IdProducto = _contenedorTrabajo.Producto.GenerarIdProducto()
-                },
+                IdProducto = _contenedorTrabajo.Producto.GenerarIdProducto(),
                 ListaCategorias = _contenedorTrabajo.Categoria.GetListaCategorias(),
                 ListaMarcas = _contenedorTrabajo.Marca.GetListaMarcas(),
             };
@@ -71,19 +79,42 @@ namespace GEEK.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _contenedorTrabajo.Producto.Create(productoVM.Producto);
+
+                var producto = new Producto
+                {
+                    IdProducto = productoVM.IdProducto,
+                    EstadoProducto = "A",
+                    NombreProducto = productoVM.NombreProducto,
+                    Precio = productoVM.Precio,
+                    StockProducto = productoVM.StockProducto,
+                    Descuento = productoVM.Descuento,
+                    Descripcion = productoVM.Descripcion,
+                    DescripcioGeneral = productoVM.DescripcioGeneral,
+                    IdCategoria = productoVM.IdCategoria,
+                    IdMarca = productoVM.IdMarca
+                };
+
+                _contenedorTrabajo.Producto.Add(producto);
+                _contenedorTrabajo.Save();
 
                 return RedirectToAction(nameof(Index));
             }
 
+            productoVM.ListaCategorias = _contenedorTrabajo.Categoria.GetListaCategorias();
+            productoVM.ListaMarcas = _contenedorTrabajo.Marca.GetListaMarcas();
             return View(productoVM);
         }
+
 
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            var producto = _contenedorTrabajo.Producto.GetFirstOrDefault(p => p.IdProducto == id && p.EstadoProducto != "B", includeProperties: "Marca,Categoria");
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
 
+            var producto = _contenedorTrabajo.Producto.GetFirstOrDefault(p => p.IdProducto == id, includeProperties: "Imagenes");
             if (producto == null)
             {
                 return NotFound();
@@ -91,9 +122,17 @@ namespace GEEK.Areas.Admin.Controllers
 
             var productoVM = new ProductoVM
             {
-                Producto = producto,
+                IdProducto = producto.IdProducto,
+                NombreProducto = producto.NombreProducto,
+                Precio = producto.Precio,
+                StockProducto = producto.StockProducto,
+                Descuento = producto.Descuento,
+                Descripcion = producto.Descripcion,
+                DescripcioGeneral = producto.DescripcioGeneral,
+                IdCategoria = producto.IdCategoria,
+                IdMarca = producto.IdMarca,
                 ListaCategorias = _contenedorTrabajo.Categoria.GetListaCategorias(),
-                ListaMarcas = _contenedorTrabajo.Marca.GetListaMarcas()
+                ListaMarcas = _contenedorTrabajo.Marca.GetListaMarcas(),
             };
 
             return View(productoVM);
@@ -105,28 +144,34 @@ namespace GEEK.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                var producto = _contenedorTrabajo.Producto.Get(productoVM.Producto.IdProducto);
+                var producto = _contenedorTrabajo.Producto.GetFirstOrDefault(p => p.IdProducto == productoVM.IdProducto, includeProperties: "Imagenes");
 
-                if (producto == null || producto.EstadoProducto == "B")
+                if (producto == null)
                 {
-                    return NotFound(); 
+                    return NotFound();
                 }
 
+                producto.NombreProducto = productoVM.NombreProducto;
+                producto.Precio = productoVM.Precio;
+                producto.StockProducto = productoVM.StockProducto;
+                producto.Descuento = productoVM.Descuento;
+                producto.Descripcion = productoVM.Descripcion;
+                producto.DescripcioGeneral = productoVM.DescripcioGeneral;
+                producto.IdCategoria = productoVM.IdCategoria;
+                producto.IdMarca = productoVM.IdMarca;
 
-                producto.NombreProducto = productoVM.Producto.NombreProducto;
-                producto.Precio = productoVM.Producto.Precio;
-                producto.Descripcion = productoVM.Producto.Descripcion;
-                producto.DescripcioGeneral = productoVM.Producto.DescripcioGeneral;
-                producto.IdMarca = productoVM.Producto.IdMarca;
-                producto.IdCategoria = productoVM.Producto.IdCategoria; 
-
-                
-                _contenedorTrabajo.Producto.Update(producto);
-                _contenedorTrabajo.Save();
-
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _contenedorTrabajo.Producto.Update(producto);
+                    _contenedorTrabajo.Save();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, $"Error al editar el producto: {ex.Message}");
+                }
             }
+
             productoVM.ListaCategorias = _contenedorTrabajo.Categoria.GetListaCategorias();
             productoVM.ListaMarcas = _contenedorTrabajo.Marca.GetListaMarcas();
             return View(productoVM);
