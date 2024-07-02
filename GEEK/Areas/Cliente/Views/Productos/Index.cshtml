@@ -6,10 +6,11 @@
 
 <div class="w-100">
     <div class="banner-marcas row d-flex">
-        <div class="logo col-5 mx-auto">
-            <img src="~/imagenes/statics/razer.png" alt="" class="" />
+        <div class="logo col-4 mx-auto d-none d-md-block">
+            @* <img src="@Model.Marcas.FirstOrDefault(m => m.IdMarca.Equals(ViewData["idMarca"].ToString())).RutaImagen" alt="" class="" /> *@
+            
         </div>
-        <div class="col-7 banner d-none d-md-flex justify-content-end">
+        <div class="col-8 banner d-md-flex justify-content-end">
             <img src="~/imagenes/statics/banner.png" alt="" class="" />
         </div>
     </div>
