@@ -54,7 +54,7 @@
 
                     <div class="col px-2 pb-4">
                     <a asp-area="Cliente" asp-controller="Productos" asp-action="Detalle" asp-route-idproducto="@recomendado.IdProducto" class="card">
-                            <span class="descuento">@(recomendado.Descuento * 100) %</span>
+                            <span class="descuento">@(recomendado.Descuento) %</span>
                             @if (recomendado.Imagenes.Any())
                             {
                                 <img src="@recomendado.Imagenes.FirstOrDefault()?.RutaImagen" class="card-img-top p-4" alt="@recomendado.NombreProducto">

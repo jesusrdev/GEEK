@@ -6,8 +6,8 @@
 <br />
 
 
-<div class="border">
-    <div class="row">
+<div class="border mx-4">
+    <div class="row p-2">
         <div class="col-6">
             <h2 class="text-center">Lista de Usuarios</h2>
         </div>
@@ -23,10 +23,10 @@
 
 <br />
 <br />
-
+<div class="row mx-auto container mx-4">
 @if (Model.Count() > 0)
 {
-    <table id="tblCategorias" class="table table-striped tabled-bordered table-hover" style="width: 100%">
+    <table id="tblCategorias" class="table table-striped tabled-bordered table-hover col-md-8">
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(m => m.Nombre)</th>
@@ -61,3 +61,4 @@
     </table>
 }
 
+</div>

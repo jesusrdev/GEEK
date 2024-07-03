@@ -22,7 +22,7 @@
                                 <div class="col description">
                                     <h2>@producto.Descripcion</h2>
                                     @Html.Raw(producto.DescripcioGeneral)
-                                    <a asp-area="Cliente" asp-controller="Productos" asp-action="Details" asp-route-id="@producto.IdProducto" class="btn-orange btn">Ver más</a>
+                                    <a asp-area="Cliente" asp-controller="Productos" asp-action="Detalle" asp-route-idproducto="@producto.IdProducto" class="btn-orange btn">Ver más</a>
                                 </div>
                                 <div class="col producto">
                                     <img src="@imagen?.RutaImagen" class="d-block w-100" alt="Monitor">
@@ -41,7 +41,7 @@
                                 <div class="col description">
                                     <h2>@producto.Descripcion</h2>
                                     @Html.Raw(producto.DescripcioGeneral)
-                                    <a asp-area="Cliente" asp-controller="Productos" asp-action="Details" asp-route-id="@producto.IdProducto" class="btn-orange btn">Ver Máss</a>
+                                    <a asp-area="Cliente" asp-controller="Productos" asp-action="Detalle" asp-route-idproducto="@producto.IdProducto" class="btn-orange btn">Ver Más</a>
                                 </div>
                                 <div class="col producto">
                                     <img src="@imagen?.RutaImagen" class="d-block w-100" alt="Monitor">
