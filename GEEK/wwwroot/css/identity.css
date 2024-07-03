@@ -87,3 +87,28 @@
             /*max-height: calc(100vh - 55px);*/
             /*margin-left: -20px;*/
         }
+
+
+form .form-control {
+    margin-bottom: 8px;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+    form .form-control:focus {
+        border-color: var(--color-primary) !important;
+        box-shadow: 0 0 0 .25rem #FA751544
+    }
+
+
+form #update-profile-button {
+    margin-bottom: 8px;
+    border-radius: 10px;
+    padding: 10px 15px;
+    background-color: var(--color-primary) !important;
+    border: none
+}
+
+    form #update-profile-button:hover {
+        opacity: 0.85;
+    }
