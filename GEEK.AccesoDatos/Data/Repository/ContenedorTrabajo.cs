@@ -21,6 +21,7 @@ namespace GEEK.AccesoDatos.Data.Repository
             Categoria = new CategoriaRepository(_db);
             Marca = new MarcaRepository(_db);
             Imagen = new ImagenRepository(_db);
+            Usuario = new UsuarioRepository(_db);
             
         }
 
@@ -31,6 +32,8 @@ namespace GEEK.AccesoDatos.Data.Repository
         public IMarcaRepository Marca { get; private set; }
 
         public IImagenRepository Imagen { get; private set; }
+
+        public IUsuarioRepository Usuario { get; private set; }
 
 
 
