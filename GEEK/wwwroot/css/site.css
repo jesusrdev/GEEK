@@ -115,7 +115,7 @@ nav {
 
     #carouselHome .carousel-item .description h2 {
         font-weight: 600;
-        font-size: clamp(30px,6vw,70px);
+        font-size: clamp(30px,6vh,70px);
 
         display: -webkit-box;
         -webkit-line-clamp: 4;

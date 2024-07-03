@@ -7,7 +7,7 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-6">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselExampleIndicators" class="carousel slide carousel-dark" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     @for (int i = 0; i < Model.Imagenes.Count(); i++)
                     {
@@ -18,7 +18,7 @@
                     @for (int i = 0; i < Model.Imagenes.Count(); i++)
                     {
                         <div class="carousel-item @(i == 0 ? "active" : "")">
-                            <img src="@Model.Imagenes.ElementAt(i).RutaImagen" class="d-block w-100" alt="Imagen del Producto">
+                            <img src="@Model.Imagenes.ElementAt(i).RutaImagen" class="d-block my-auto w-100" alt="Imagen del Producto">
                         </div>
                     }
                 </div>
@@ -32,36 +32,67 @@
                 </button>
             </div>
         </div>
-        <div class="col-md-6">
-            <h1>@Model.Producto.NombreProducto</h1>
-            <p>@Model.Producto.Descripcion</p>
-            <p>@Model.Producto.DescripcioGeneral</p>
-            <p><strong>Precio: </strong>@Model.Producto.Precio</p>
-            <p><strong>Stock: </strong>@Model.Producto.StockProducto</p>
-            <p><strong>Descuento: </strong>@Model.Producto.Descuento</p>
+        <div class="col-md-6 descripcion py-3">
+            <h3>@Model.Producto.NombreProducto</h3>
+            <p class="des pb-2">@Model.Producto.Descripcion</p>
+            @Html.Raw(Model.Producto.DescripcioGeneral)
+            <p class="precio">S/ @Math.Round((Model.Producto.Precio ?? 0) * (1 - (Model.Producto.Descuento / 100 ?? 0)), 2)</p>
+            <del class="precio-descuento mb-4">@Model.Producto.Precio</del>
+            <p class="my-2"><strong>Descuento: </strong>@Model.Producto.Descuento</p>
 
         </div>
     </div>
 
     <hr />
 
-    <div class="container mt-4">
+    <div id="mas-vendidos-container" class="mas-vendidos-container container mt-4">
         <h2>Productos Recomendados</h2>
-        <div class="row">
-            @foreach (var recomendado in Model.Productos)
-            {
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="@recomendado.Imagenes.FirstOrDefault()?.RutaImagen" class="card-img-top" alt="Imagen de Producto">
-                        <div class="card-body">
-                            <h5 class="card-title">@recomendado.NombreProducto</h5>
-                            <p class="card-text">@recomendado.Descripcion</p>
-                            <p class="card-text"><strong>Precio:</strong> S/ @(recomendado.Precio * (1 - recomendado.Descuento / 100)) <del>S/ @recomendado.Precio</del></p>
-                            <a href="/Cliente/Productos/Detalle?idproducto=@recomendado.IdProducto" class="btn btn-primary">Ver Detalle</a>
-                        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3  m-3">
+            @* <div id="containerProductos" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4  m-3"> *@
+                @foreach (var recomendado in Model.Productos)
+                {
+
+                    <div class="col px-2 pb-4">
+                    <a asp-area="Cliente" asp-controller="Productos" asp-action="Detalle" asp-route-idproducto="@recomendado.IdProducto" class="card">
+                            <span class="descuento">@(recomendado.Descuento * 100) %</span>
+                            @if (recomendado.Imagenes.Any())
+                            {
+                                <img src="@recomendado.Imagenes.FirstOrDefault()?.RutaImagen" class="card-img-top p-4" alt="@recomendado.NombreProducto">
+                            }
+                            else
+                            {
+                                <!-- Si no hay imágenes, puedes mostrar una imagen predeterminada o un mensaje alternativo -->
+                                <img src="" class="card-img-top p-4" alt="@recomendado.NombreProducto">
+                            }
+
+                            <div class="card-body">
+                                <h5 class="card-title">@recomendado.NombreProducto</h5>
+                                <div class="row justify-content-between">
+                                <p class="col">S/ @Math.Round((recomendado.Precio ?? 0) * (1 - (recomendado.Descuento / 100 ?? 0)), 2)   <del>S/ @(recomendado.Precio)</del></p>
+                                    <div class="col">
+                                        <btn type="button" class="btn btn-dark rounded-circle">
+                                            <i class="fa-solid fa-arrow-right"></i>
+                                        </btn>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
+
+
+                    @* <div class="col-md-4">
+                <div class="card mb-4">
+                <img src="@recomendado.Imagenes.FirstOrDefault()?.RutaImagen" class="card-img-top p-4" alt="Imagen de Producto">
+                <div class="card-body">
+                <h5 class="card-title">@recomendado.NombreProducto</h5>
+                <p class="card-text">@recomendado.Descripcion</p>
+                <p class="card-text"><strong>Precio:</strong> S/ @(recomendado.Precio * (1 - recomendado.Descuento / 100)) <del>S/ @recomendado.Precio</del></p>
+                <a href="/Cliente/Productos/Detalle?idproducto=@recomendado.IdProducto" class="btn btn-primary">Ver Detalle</a>
                 </div>
-            }
+                </div>
+                </div> *@
+                }
+            @* </div> *@
         </div>
     </div>
 </div>
