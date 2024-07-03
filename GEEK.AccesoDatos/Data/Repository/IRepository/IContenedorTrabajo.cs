@@ -14,6 +14,7 @@ namespace GEEK.AccesoDatos.Data.Repository.IRepository
         ICategoriaRepository Categoria { get; }
         IMarcaRepository Marca { get; }
         IImagenRepository Imagen { get; }
+        IUsuarioRepository Usuario { get; }
 
 
         void Save();
