@@ -15,11 +15,44 @@
                 <input asp-for="Username" class="form-control" disabled />
                 <label asp-for="Username" class="form-label"></label>
             </div>
-            <div class="form-floating">
+            @* <div class="form-floating">
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div> *@
+
+            <div class="form-floating">
+                <input asp-for="Input.Nombre" class="form-control" />
+                <label asp-for="Input.Nombre" class="form-label">Nombre</label>
+                <span asp-validation-for="Input.Nombre" class="text-danger"></span>
             </div>
+            <div class="form-floating">
+                <input asp-for="Input.ApellidoUsuario" class="form-control" />
+                <label asp-for="Input.ApellidoUsuario" class="form-label">Apellido</label>
+                <span asp-validation-for="Input.ApellidoUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.DNI" class="form-control" />
+                <label asp-for="Input.DNI" class="form-label">DNI</label>
+                <span asp-validation-for="Input.DNI" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Pais" class="form-control" />
+                <label asp-for="Input.Pais" class="form-label">Pais</label>
+                <span asp-validation-for="Input.Pais" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Departamento" class="form-control" />
+                <label asp-for="Input.Departamento" class="form-label">Departamento</label>
+                <span asp-validation-for="Input.Departamento" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Direccion" class="form-control" />
+                <label asp-for="Input.Direccion" class="form-label">Direccion</label>
+                <span asp-validation-for="Input.Direccion" class="text-danger"></span>
+            </div>
+
+
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
         </form>
     </div>
