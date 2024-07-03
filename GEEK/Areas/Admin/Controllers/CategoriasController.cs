@@ -1,10 +1,12 @@
 ﻿using GEEK.AccesoDatos.Data.Repository.IRepository;
 using GEEK.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GEEK.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     [Area("Admin")]
     public class CategoriasController : Controller
     {

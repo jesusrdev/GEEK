@@ -1,10 +1,12 @@
 ﻿using GEEK.AccesoDatos.Data.Repository.IRepository;
 using GEEK.Models;
 using GEEK.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GEEK.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     [Area("Admin")]
     public class MarcasController : Controller
     {

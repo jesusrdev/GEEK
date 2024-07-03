@@ -2,10 +2,12 @@
 using GEEK.Models.ViewModels;
 using GEEK.AccesoDatos.Data.Repository.IRepository;
 using GEEK.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace GEEK.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     [Area("Admin")]
     public class ProductosController : Controller
     {
