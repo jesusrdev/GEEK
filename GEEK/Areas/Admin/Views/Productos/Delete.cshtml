@@ -4,11 +4,11 @@
     ViewData["Title"] = "Eliminar Producto";
 }
 
-<h1>Eliminar Producto</h1>
+<h1 class="text-center p-3">Eliminar Producto</h1>
 
-<h3>¿Está seguro que desea eliminar este producto?</h3>
+<h3 class="text-center px-3">¿Está seguro que desea eliminar este producto?</h3>
 <br />
-<div>
+<div class="mx-auto" style="width: 80%;">
 
     <h4>@Model.IdProducto</h4>
     <h4>@Model.NombreProducto</h4>
@@ -27,7 +27,7 @@
         <dd class="col-sm-10">@Model.Descripcion</dd>
 
         <dt class="col-sm-2">Descripción General:</dt>
-        <dd class="col-sm-10">@Model.DescripcioGeneral</dd>
+        <dd class="col-sm-10">@Html.Raw(Model.DescripcioGeneral)</dd>
 
         <dt class="col-sm-2">Stock:</dt>
         <dd class="col-sm-10">@Model.StockProducto</dd>
