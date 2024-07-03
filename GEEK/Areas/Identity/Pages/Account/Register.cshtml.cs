@@ -11,6 +11,7 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using GEEK.Models;
+using GEEK.Utilidades;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -31,12 +32,15 @@ namespace GEEK.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
+        private readonly RoleManager<IdentityRole> _roleManager;
+
         public RegisterModel(
             UserManager<Usuario> userManager,
             IUserStore<Usuario> userStore,
             SignInManager<Usuario> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +48,7 @@ namespace GEEK.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -142,6 +147,37 @@ namespace GEEK.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+
+                    // Aqui validamos si los roles existen, sino los creamos
+                    if (!await _roleManager.RoleExistsAsync(CNT.Administrador))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(CNT.Administrador));
+                        await _roleManager.CreateAsync(new IdentityRole(CNT.Registrado));
+                        await _roleManager.CreateAsync(new IdentityRole(CNT.Cliente));
+                    }
+
+                    // Obtenemos el rol seleccionado
+                    string rol = Request.Form["radUsuarioRole"].ToString();
+
+                    // Validamos si el rol seleccionado es Admin y si lo es lo agregamos
+                    if (rol == CNT.Administrador)
+                    {
+                        await _userManager.AddToRoleAsync(user, CNT.Administrador);
+                    }
+                    else
+                    {
+                        if (rol == CNT.Registrado)
+                        {
+                            await _userManager.AddToRoleAsync(user, CNT.Registrado);
+                        }
+                        else
+                        {
+                            await _userManager.AddToRoleAsync(user, CNT.Cliente);
+                        }
+                    }
+
+
+
                     _logger.LogInformation("User created a new account with password.");
 
                     //var userId = await _userManager.GetUserIdAsync(user);

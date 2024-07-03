@@ -2,18 +2,20 @@
 
 .login {
     /*height: clamp(500px, 100vh - 100px, 1200px);*/
-    max-height: calc(100vh - 55px)
+    /*max-height: calc(100vh - 55px)*/
+    --bs-gutter-x: 0rem;
 }
 
 
     .login form {
         font-family: "Poppins", sans-serif;
         height: 100%;
-        /*padding: 30px 0;*/
+        padding: 30px;
         max-width: fit-content;
-        margin-inline: auto;
+        max-height: fit-content;
+        margin-inline: auto;/*
         padding-left: 30px;
-        padding-right: 30px;
+        padding-right: 30px;*/
     }
 
         .login form h2 {
@@ -80,6 +82,8 @@
 
         .login .img-container img {
             object-fit: cover;
-            max-height: calc(100vh - 55px);
+            height: 100vh;
+            min-height: 890px;
+            /*max-height: calc(100vh - 55px);*/
             /*margin-left: -20px;*/
         }
