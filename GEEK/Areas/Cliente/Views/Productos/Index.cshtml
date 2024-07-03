@@ -145,7 +145,7 @@
                     $.each(response.productos, function (index, producto) {
                         var card = `
                         <div class='col px-2 pb-4'>
-                            <a href='/Producto/Detalle/${producto.idProducto}' class='card'>
+                            <a href='/Cliente/Productos/Detalle?idproducto=${producto.idProducto}' class='card'>
                                 <span class='descuento'>${producto.descuento}%</span>
                                 <img src='${producto.rutaImagen}' class='card-img-top p-4' alt='${producto.nombreProducto}'>
                                 <div class='card-body'>

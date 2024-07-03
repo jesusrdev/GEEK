@@ -1,4 +1,5 @@
 ﻿using GEEK.AccesoDatos.Data.Repository.IRepository;
+using GEEK.Models;
 using GEEK.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -29,6 +30,48 @@ namespace GEEK.Areas.Cliente.Controllers
             ViewBag.IsProductosActive = "active";
 
             return View(HomeVM);
+        }
+
+        public IActionResult Detalle(string idproducto)
+        {
+            if (string.IsNullOrEmpty(idproducto))
+            {
+                return NotFound();
+            }
+
+            var producto = _contenedorTrabajo.Producto.GetFirstOrDefault(
+                p => p.IdProducto == idproducto,
+                includeProperties: "Imagenes,Categoria"
+            );
+
+            var imagen = _contenedorTrabajo.Imagen.GetFirstOrDefault(
+                i => i.IdProducto== idproducto);
+
+            if (producto == null)
+            {
+                return NotFound();
+            }
+
+            var productosRecomendados = _contenedorTrabajo.Producto.GetAll(
+                p => p.IdCategoria == producto.IdCategoria && p.IdProducto != idproducto
+            ).Take(3).ToList();
+
+            foreach (var recomendado in productosRecomendados)
+            {
+                recomendado.Imagenes = _contenedorTrabajo.Imagen.GetAll(i => i.IdProducto == recomendado.IdProducto).ToList();
+            }
+
+            var homeVM = new HomeVM
+            {
+                Producto = producto,
+                ImagenP = imagen,
+                Imagenes = producto.Imagenes,
+                Categorias = _contenedorTrabajo.Categoria.GetAll(),
+                Marcas = _contenedorTrabajo.Marca.GetAll(),
+                Productos = productosRecomendados
+            };
+
+            return View(homeVM);
         }
 
 
