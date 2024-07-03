@@ -12,7 +12,7 @@
             <form id="account" method="post">
                 <h2>@ViewData["Title"]</h2>
                 <p class="information">Ingresa tus datos, por favor.</p>
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="">
                     <label asp-for="Input.Email" class="form-label"></label>
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />

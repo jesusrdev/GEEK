@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GEEK.Models
 {
-    public partial class Usuario
+    public partial class Usuario : IdentityUser
     {
         public Usuario()
         {
@@ -11,19 +13,20 @@ namespace GEEK.Models
             Ordenes = new HashSet<Orden>();
         }
 
-        public string IdUsuario { get; set; } = null!;
-        public string NombreUsuario { get; set; } = null!;
-        public string ApellidoUsuario { get; set; } = null!;
-        public string Email { get; set; } = null!;
-        public string Contrasenia { get; set; } = null!;
-        public DateTime FechaRegistro { get; set; }
-        public string Direccion { get; set; } = null!;
-        public string Departamento { get; set; } = null!;
-        public string Pais { get; set; } = null!;
-        public string? IdRol { get; set; }
+        [Required(ErrorMessage = "El nombre es obligatorio")]
+        public string Nombre { get; set; } = null!;
 
-        public virtual Rol? IdRolNavigation { get; set; }
-        public virtual ICollection<DetalleOrden> DetalleOrden { get; set; }
-        public virtual ICollection<Orden> Ordenes { get; set; }
+        [Required(ErrorMessage = "El Apellido es obligatorio")]
+        public string ApellidoUsuario { get; set; } = null!;
+
+        public string? DNI { get; set; } = null!;
+        public DateTime? FechaRegistro { get; set; }
+        public string? Direccion { get; set; } = null!;
+        public string? Departamento { get; set; } = null!;
+        public string? Pais { get; set; } = null!;
+
+        
+        public virtual ICollection<DetalleOrden>? DetalleOrden { get; set; }
+        public virtual ICollection<Orden>? Ordenes { get; set; }
     }
 }

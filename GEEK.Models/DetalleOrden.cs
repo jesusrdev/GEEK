@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GEEK.Models
 {
@@ -13,6 +14,8 @@ namespace GEEK.Models
 
         public virtual Orden Orden { get; set; } = null!;
         public virtual Producto? Producto { get; set; } = null!;
+
+        //[ForeignKey("idUsuario")]
         public virtual Usuario? Usuario { get; set; }
     }
 }

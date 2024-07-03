@@ -10,7 +10,19 @@
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h2>@ViewData["Title"]</h2>
             <p class="information">Ingresa tus datos, por favor.</p>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="">
+                <label asp-for="Input.Nombre" class="form-label"></label>
+                <input asp-for="Input.Nombre" class="form-control" autocomplete="nombre" aria-required="true" />
+                <span asp-validation-for="Input.Nombre" class="text-danger"></span>
+            </div>
+            <div class="">
+                <label asp-for="Input.ApellidoUsuario" class="form-label"></label>
+                <input asp-for="Input.ApellidoUsuario" class="form-control" autocomplete="apellidousuario" aria-required="true" />
+                <span asp-validation-for="Input.ApellidoUsuario" class="text-danger"></span>
+            </div>
+
             <div class="">
                 <label asp-for="Input.Email" class="form-label"></label>
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />

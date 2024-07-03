@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GEEK.Data
 {
-    public partial class ApplicationDbContext : IdentityDbContext
+    public partial class ApplicationDbContext : IdentityDbContext<Usuario>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -17,7 +17,6 @@ namespace GEEK.Data
         public virtual DbSet<Marca> Marca { get; set; } = null!;
         public virtual DbSet<Orden> Orden { get; set; } = null!;
         public virtual DbSet<Producto> Producto { get; set; } = null!;
-        public virtual DbSet<Rol> Rol { get; set; } = null!;
         public virtual DbSet<Usuario> Usuario { get; set; } = null!;
 
 
@@ -50,10 +49,8 @@ namespace GEEK.Data
                     .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.IdUsuario)
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
                     .HasColumnName("idUsuario")
-                    .IsFixedLength();
+                    .HasMaxLength(450);
 
                 entity.Property(e => e.Precio).HasColumnName("precio");
 
@@ -171,10 +168,8 @@ namespace GEEK.Data
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.IdUsuario)
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
                     .HasColumnName("idUsuario")
-                    .IsFixedLength();
+                    .HasMaxLength(450);
 
                 entity.HasOne(d => d.Usuario)
                     .WithMany(p => p.Ordenes)
@@ -248,92 +243,92 @@ namespace GEEK.Data
 
             });
 
-            modelBuilder.Entity<Rol>(entity =>
-            {
-                entity.HasKey(e => e.IdRol)
-                    .HasName("PK__Rol");
+            //modelBuilder.Entity<Rol>(entity =>
+            //{
+            //    entity.HasKey(e => e.IdRol)
+            //        .HasName("PK__Rol");
 
-                entity.ToTable("Rol");
+            //    entity.ToTable("Rol");
 
-                entity.Property(e => e.IdRol)
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .HasColumnName("idRol")
-                    .IsFixedLength();
+            //    entity.Property(e => e.IdRol)
+            //        .HasMaxLength(5)
+            //        .IsUnicode(false)
+            //        .HasColumnName("idRol")
+            //        .IsFixedLength();
 
-                entity.Property(e => e.DescripcionRol)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("descripcionRol");
-            });
+            //    entity.Property(e => e.DescripcionRol)
+            //        .HasMaxLength(50)
+            //        .IsUnicode(false)
+            //        .HasColumnName("descripcionRol");
+            //});
 
-            modelBuilder.Entity<Usuario>(entity =>
-            {
-                entity.HasKey(e => e.IdUsuario)
-                    .HasName("PK__Usuario");
+            //modelBuilder.Entity<Usuario>(entity =>
+            //{
+            //    entity.HasKey(e => e.IdUsuario)
+            //        .HasName("PK__Usuario");
 
-                entity.ToTable("Usuario");
+            //    entity.ToTable("Usuario");
 
-                entity.HasIndex(e => e.Email, "UQ__Usuario__Email")
-                    .IsUnique();
+            //    entity.HasIndex(e => e.Email, "UQ__Usuario__Email")
+            //        .IsUnique();
 
-                entity.Property(e => e.IdUsuario)
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .HasColumnName("idUsuario")
-                    .IsFixedLength();
+            //    entity.Property(e => e.IdUsuario)
+            //        .HasMaxLength(5)
+            //        .IsUnicode(false)
+            //        .HasColumnName("idUsuario")
+            //        .IsFixedLength();
 
-                entity.Property(e => e.ApellidoUsuario)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("apellidoUsuario");
+            //    entity.Property(e => e.ApellidoUsuario)
+            //        .HasMaxLength(50)
+            //        .IsUnicode(false)
+            //        .HasColumnName("apellidoUsuario");
 
-                entity.Property(e => e.Contrasenia)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("contrasenia");
+            //    entity.Property(e => e.Contrasenia)
+            //        .HasMaxLength(50)
+            //        .IsUnicode(false)
+            //        .HasColumnName("contrasenia");
 
-                entity.Property(e => e.Departamento)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("departamento");
+            //    entity.Property(e => e.Departamento)
+            //        .HasMaxLength(50)
+            //        .IsUnicode(false)
+            //        .HasColumnName("departamento");
 
-                entity.Property(e => e.Direccion)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .HasColumnName("direccion");
+            //    entity.Property(e => e.Direccion)
+            //        .HasMaxLength(200)
+            //        .IsUnicode(false)
+            //        .HasColumnName("direccion");
 
-                entity.Property(e => e.Email)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("email");
+            //    entity.Property(e => e.Email)
+            //        .HasMaxLength(100)
+            //        .IsUnicode(false)
+            //        .HasColumnName("email");
 
-                entity.Property(e => e.FechaRegistro)
-                    .HasColumnType("datetime")
-                    .HasColumnName("fechaRegistro")
-                    .HasDefaultValueSql("(getdate())");
+            //    entity.Property(e => e.FechaRegistro)
+            //        .HasColumnType("datetime")
+            //        .HasColumnName("fechaRegistro")
+            //        .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.IdRol)
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .HasColumnName("idRol")
-                    .IsFixedLength();
+            //    entity.Property(e => e.IdRol)
+            //        .HasMaxLength(5)
+            //        .IsUnicode(false)
+            //        .HasColumnName("idRol")
+            //        .IsFixedLength();
 
-                entity.Property(e => e.NombreUsuario)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("nombreUsuario");
+            //    entity.Property(e => e.NombreUsuario)
+            //        .HasMaxLength(50)
+            //        .IsUnicode(false)
+            //        .HasColumnName("nombreUsuario");
 
-                entity.Property(e => e.Pais)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("pais");
+            //    entity.Property(e => e.Pais)
+            //        .HasMaxLength(50)
+            //        .IsUnicode(false)
+            //        .HasColumnName("pais");
 
-                entity.HasOne(d => d.IdRolNavigation)
-                    .WithMany(p => p.Usuarios)
-                    .HasForeignKey(d => d.IdRol)
-                    .HasConstraintName("FK_Usuario_Rol");
-            });
+            //    entity.HasOne(d => d.IdRolNavigation)
+            //        .WithMany(p => p.Usuarios)
+            //        .HasForeignKey(d => d.IdRol)
+            //        .HasConstraintName("FK_Usuario_Rol");
+            //});
 
             OnModelCreatingPartial(modelBuilder);
         }
