@@ -52,7 +52,7 @@ namespace GEEK.Areas.Identity.Pages.Account.Manage
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "New password")]
+            [Display(Name = "Nueva Contraseña")]
             public string NewPassword { get; set; }
 
             /// <summary>
@@ -60,8 +60,8 @@ namespace GEEK.Areas.Identity.Pages.Account.Manage
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            [Display(Name = "Confirmar nueva contraseña")]
+            [Compare("NewPassword", ErrorMessage = "La nueva contraseña y la contraseña de confirmación no son iguales.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -107,7 +107,7 @@ namespace GEEK.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your password has been set.";
+            StatusMessage = "Tu contraseña ha sido guardada.";
 
             return RedirectToPage();
         }
