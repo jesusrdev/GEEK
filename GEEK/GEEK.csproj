@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="wwwroot\imagenes\marcas\" />
     <Folder Include="wwwroot\imagenes\productos\" />
   </ItemGroup>

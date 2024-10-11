@@ -1,0 +1,56 @@
+﻿body {
+
+}
+
+
+.border-form {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 2px rgba(255, 165, 0, 0.5);
+}
+
+.margen{
+    margin: 50px 50px 80px 50px;
+}
+
+.btn-outline-orange {
+    color: #ff8c00; /* Color del texto anaranjado */
+    background-color: transparent; /* Fondo transparente */
+    background-image: none; /* Sin imagen de fondo */
+    border-color: #ff8c00; /* Color del borde anaranjado */
+}
+
+    .btn-outline-orange:hover {
+        color: #fff; /* Color del texto blanco al pasar el ratón */
+        background-color: #ff8c00; /* Fondo anaranjado al pasar el ratón */
+        border-color: #ff8c00; /* Color del borde anaranjado al pasar el ratón */
+    }
+
+    .btn-outline-orange:focus, .btn-outline-orange.focus {
+        box-shadow: 0 0 0 0.2rem rgba(255, 140, 0, 0.5); /* Sombra anaranjada al enfocar */
+    }
+
+    .btn-outline-orange:active, .btn-outline-orange.active, .show > .btn-outline-orange.dropdown-toggle {
+        color: #fff; /* Color del texto blanco al hacer clic */
+        background-color: #e07b00; /* Fondo anaranjado oscuro al hacer clic */
+        border-color: #c36900; /* Color del borde anaranjado oscuro al hacer clic */
+    }
+
+    .btn-outline-orange:disabled, .btn-outline-orange.disabled {
+        color: #ff8c00; /* Color del texto anaranjado */
+        background-color: transparent; /* Fondo transparente */
+        border-color: #ff8c00; /* Color del borde anaranjado */
+        opacity: 0.65; /* Opacidad reducida */
+    }
+
+.text-orange {
+    color: #ff8c00; /* Color anaranjado */
+}
+
+.input-orange {
+    background-color: #fff0e6 !important; /* Color anaranjado claro */
+    border: 1px solid #ccc !important; /* Borde gris claro */
+    padding: 10px !important; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px !important; /* Tamaño de fuente */
+}

@@ -1,0 +1,130 @@
+﻿
+
+.banner-marcas {
+    max-height: 300px;
+    height: 100%;
+    overflow: hidden;
+    min-width: 100vw;
+    background-color: black;
+    --bs-gutter-x: 0;
+}
+
+    .banner-marcas .logo {
+        max-height: 300px;
+    }
+
+        .banner-marcas .logo img {
+            object-fit: contain;
+            height: 100%;
+            width: 100%;
+            padding: 30px;
+        }
+
+    .banner-marcas .banner {
+        max-height: 300px;
+        overflow: hidden;
+    }
+
+        .banner-marcas .banner img {
+            object-fit: contain;
+            height: 100%;
+            width: 100%;
+            max-width: fit-content;
+            margin-right: -50px;
+        }
+
+
+.filtros {
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    box-shadow: 0px 3px 4px 2px #d3d3d3ee
+}
+
+    .filtros .form-label {
+        margin-bottom: 0px;
+        height: fit-content;
+        margin: auto 0px;
+    }
+
+
+    .filtros #collapseExample {
+        width: fit-content;
+        position: absolute;
+        z-index: 10;
+    }
+
+        .filtros #collapseExample card {
+        }
+
+
+
+
+#carouselExampleIndicators {
+}
+
+    #carouselExampleIndicators .carousel-indicators {
+        /*height: clamp(5vh, 100vh - 50px, 1200px);*/
+    }
+
+    #carouselExampleIndicators .carousel-inner {
+        height: clamp(5vh, 100vh - 50px, 1200px);
+        border: 2px solid #eee;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    #carouselExampleIndicators .carousel-item {
+    }
+
+        #carouselExampleIndicators .carousel-item.active {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #carouselExampleIndicators .carousel-item img {
+            height: 100%;
+            object-fit: contain;
+        }
+
+.descripcion {
+    font-family: "Poppins", sans-serif;
+}
+
+    .descripcion h3 {
+        font-size: 25px;
+        font-weight: 500;
+    }
+
+    .descripcion p {
+        font-size: 17px;
+    }
+
+    .descripcion .des {
+        border-bottom: 2px solid #ddd;
+    }
+
+    .descripcion ul {
+        border: 2px solid #eee;
+        border-radius: 10px;
+        margin: 10px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+        .descripcion ul li::marker {
+            background-color: var(--color-primary);
+        }
+
+
+    .descripcion .precio {
+        font-weight: 700;
+        font-size: 25px;
+        color: var(--color-primary) !important;
+    }
+
+    .descripcion .precio-descuento {
+        font-size: 17px;
+        
+    }

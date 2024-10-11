@@ -1,0 +1,85 @@
+﻿@model GEEK.Models.ViewModels.HomeVM
+
+<div id="carouselHome" class="carousel carousel-dark slide " data-bs-ride="carousel">
+    <div class="carousel-inner overflow-hidden">
+        @{
+            var productosMasCarosPorCategoria = Model.Productos.GroupBy(p => p.IdCategoria)
+                                                    .Select(g => g.OrderByDescending(p => p.Precio).First())
+                                                    .Take(5);
+
+            var count = 0;
+
+            foreach(var producto in productosMasCarosPorCategoria)
+            {
+                var imagen = Model.Imagenes.FirstOrDefault(i => i.IdProducto == producto.IdProducto);
+
+
+                if (count == 0)
+                {
+                    <div class="carousel-item w-100 active">
+                        <div class="d-block w-100">
+                            <div class="row row-cols-1 row-cols-md-2 slider" style="">
+                                <div class="col description">
+                                    <h2>@producto.Descripcion</h2>
+                                    @Html.Raw(producto.DescripcioGeneral)
+                                    <a asp-area="Cliente" asp-controller="Productos" asp-action="Detalle" asp-route-idproducto="@producto.IdProducto" class="btn-orange btn">Ver más</a>
+                                </div>
+                                <div class="col producto">
+                                    <img src="@imagen?.RutaImagen" class="d-block w-100" alt="Monitor">
+                                    <p class="">@producto.NombreProducto</p>
+                                    <span class="">s/ @Math.Round((producto.Precio ?? 0) * (1 - (producto.Descuento/ 100 ?? 0)), 2)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="carousel-item w-100">
+                        <div class="d-block w-100">
+                            <div class="row row-cols-1 row-cols-md-2 slider" style="">
+                                <div class="col description">
+                                    <h2>@producto.Descripcion</h2>
+                                    @Html.Raw(producto.DescripcioGeneral)
+                                    <a asp-area="Cliente" asp-controller="Productos" asp-action="Detalle" asp-route-idproducto="@producto.IdProducto" class="btn-orange btn">Ver Más</a>
+                                </div>
+                                <div class="col producto">
+                                    <img src="@imagen?.RutaImagen" class="d-block w-100" alt="Monitor">
+                                    <p class="">@producto.NombreProducto</p>
+                                    <span class="">s/ @Math.Round((producto.Precio ?? 0) * (1 - (producto.Descuento / 100 ?? 0)), 2)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                count++;
+            }
+        }
+        @* <div class="carousel-item active w-100">
+            <div class="d-block w-100">
+                <div class="row row-cols-1 row-cols-md-2 slider" style="">
+                    <div class="col description">
+                        <h2>PANEL VA DE ALTA NITIDEZ</h2>
+                        <p>El Ruby está equipado con un panel VA que proporciona una pérdida mínima de luz y un contraste superior con colores oscuros más fuertes y definidos, lo que te brindará la respuesta que necesitas en los juegos y una mejor calidad de visualización en cualquier circunstancia.</p>
+                        <a class="btn-orange btn">Comprar ahora</a>
+                    </div>
+                    <div class="col producto">
+                        <img src="~/imagenes/statics/monitor.png" class="d-block w-100" alt="Monitor">
+                        <p class="">Monitor TUF Gaming</p>
+                        <span class="">s/ 780.00</span>
+                    </div>
+                </div>
+            </div>
+        </div> *@
+        
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselHome" data-bs-slide="prev" >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselHome" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

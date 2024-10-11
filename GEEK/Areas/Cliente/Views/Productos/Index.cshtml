@@ -1,0 +1,235 @@
+﻿@model GEEK.Models.ViewModels.HomeVM
+@{
+    ViewData["Title"] = "Productos";
+}
+
+
+<div class="w-100">
+    <div class="banner-marcas row d-flex">
+        <div class="logo col-4 mx-auto d-none d-md-block">
+            @* <img src="@Model.Marcas.FirstOrDefault(m => m.IdMarca.Equals(ViewData["idMarca"].ToString())).RutaImagen" alt="" class="" /> *@
+            
+        </div>
+        <div class="col-8 banner d-md-flex justify-content-end">
+            <img src="~/imagenes/statics/banner.png" alt="" class="" />
+        </div>
+    </div>
+</div>
+
+<div class="px-2 py-2 mb-5">
+    <div class="filtros row w-100 mx-auto justify-content-between align-items-center py-2">
+        <div class="col-3 row">
+            <label class="col-4 form-label" style="width:fit-content;">Marcas</label>
+            <select id="marcaSelect" name="marcaSelect" class="form-control form-select col">
+                <option value="todas">--Todas--</option>
+                @foreach(var marca in Model.Marcas)
+                {
+                    if (marca.IdMarca.Equals(ViewData["idMarca"]))
+                    {
+                        <option value="@marca.IdMarca" selected>@marca.NombreMarca</option>
+                    } else {
+                        <option value="@marca.IdMarca">@marca.NombreMarca</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-5 row">
+            <p class="col mb-0">
+                Total: <span id="totalProductos" class="">@Model.Productos.Count() productos</span>
+            </p>
+
+        </div>
+
+        <div class="col-2 row">
+            <input id="searchInput" class="form-control" placeholder="Buscar" />
+        </div>
+
+        @* <div class="col-2 row">
+            <label class="col form-label">Ordenar por: </label>
+        </div> *@
+
+        <div class="col-2 px-0">
+            <div class="">
+                <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Filtrar por...
+                </button>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        @foreach(var categoria in Model.Categorias)
+                        {
+                            <div class="">
+                                <input type="checkbox" id="@categoria.IdCategoria" value="@categoria.IdCategoria" class="" name="categorias" />
+                                <label for="@categoria.IdCategoria">@categoria.DescripcionCategoria</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mas-vendidos-container">
+    <div id="loader" class="spinner-border text-primary d-none mx-auto d-block my-3" role="status">
+        <span class="sr-only ">Cargando...</span>
+    </div>
+
+    <div id="containerProductos" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4  m-3">
+        @*  @foreach (var producto in Model.Productos)
+        {
+        <div class="col px-2 pb-4">
+        <a asp-area="Cliente" asp-controller="Productos" asp-action="Details" asp-route-id="@producto.IdProducto" class="card">
+        <span class="descuento">@(producto.Descuento * 100) %</span>
+        @if (producto.Imagenes.Any())
+        {
+        <img src="@Url.Content(producto.Imagenes.FirstOrDefault().RutaImagen)" class="card-img-top p-4" alt="@producto.NombreProducto">
+        }
+        else
+        {
+        <!-- Si no hay imágenes, puedes mostrar una imagen predeterminada o un mensaje alternativo -->
+        <img src="" class="card-img-top p-4" alt="@producto.NombreProducto">
+        }
+
+        <div class="card-body">
+        <h5 class="card-title">@producto.NombreProducto</h5>
+        <div class="row justify-content-between">
+        <p class="col">S/ @(producto.Precio * (1 - producto.Descuento))   <del>S/ @(producto.Precio)</del></p>
+        <div class="col">
+        <btn type="button" class="btn btn-dark rounded-circle">
+        <i class="fa-solid fa-arrow-right"></i>
+        </btn>
+        </div>
+        </div>
+        </div>
+        </a>
+        </div>
+        } *@
+    </div>
+
+    <div class="mx-auto" style="width: fit-content;cursor: pointer;">
+        <ul id="paginationContainer" class="pagination mt-3 mb-5 mx-auto"></ul>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var currentPage = 1;
+        var pageSize = 12;
+        var searchString = '';
+        var idMarca = $("#marcaSelect").val();
+        var categorias = [];
+
+        // Función para cargar productos
+        function cargarProductos() {
+            $.ajax({
+                url: "/Cliente/Productos/FiltrarProductos",
+                type: "GET",
+                data: {
+                    searchString: searchString,
+                    idMarca: idMarca,
+                    categorias: JSON.stringify(categorias),
+                    page: currentPage,
+                    pageSize: pageSize
+                },
+                beforeSend: function () {
+                    $('#loader').removeClass('d-none');
+                },
+                success: function (response) {
+                    console.log("Enviando request:", { searchString, idMarca, categorias, page: currentPage, pageSize });
+
+                    var container = $("#containerProductos");
+                    container.empty();
+
+                    $.each(response.productos, function (index, producto) {
+                        var card = `
+                        <div class='col px-2 pb-4'>
+                            <a href='/Cliente/Productos/Detalle?idproducto=${producto.idProducto}' class='card'>
+                                <span class='descuento'>${producto.descuento}%</span>
+                                <img src='${producto.rutaImagen}' class='card-img-top p-4' alt='${producto.nombreProducto}'>
+                                <div class='card-body'>
+                                    <h5 class='card-title'>${producto.nombreProducto}</h5>
+                                    <div class='row justify-content-between'>
+                                        <p class='col'>S/ ${(producto.precio * (1 - producto.descuento / 100)).toFixed(2)} <del>S/ ${producto.precio.toFixed(2)}</del></p>
+                                        <div class='col'>
+                                            <btn type='button' class='btn btn-dark rounded-circle'>
+                                                <i class='fa-solid fa-arrow-right'></i>
+                                            </btn>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>`;
+                        container.append(card);
+                    });
+
+                    if (response.productos.length === 0) {
+                        container.append(`
+                            <p class="alert alert-secondary" role="alert">No se encontraron productos con los filtros seleccionados</p>
+                        `);
+                    }
+
+                    // Actualizar la paginación
+                    actualizarPaginacion(response.totalPaginas, response.paginaActual);
+                    actualizarTotalProductos(response.totalProductos);
+                },
+                complete: function () {
+                    $('#loader').addClass('d-none');
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error al cargar productos:", error);
+                    $("#containerProductos").html(`
+                        <p class="alert alert-danger" role="alert">Error al cargar los productos. Por favor, intente nuevamente.</p>
+                    `);
+                }
+            });
+        }
+
+        // Función para actualizar la paginación
+        function actualizarPaginacion(totalPaginas, paginaActual) {
+            var paginationContainer = $("#paginationContainer");
+            paginationContainer.empty();
+
+            for (var i = 1; i <= totalPaginas; i++) {
+                var pageItem = $(`<li class="page-item ${i === paginaActual ? 'active' : ''}">
+                                        <a class="page-link">${i}</a>
+                                  </li>`);
+                pageItem.click(function () {
+                    currentPage = parseInt($(this).text());
+                    cargarProductos();
+                });
+                paginationContainer.append(pageItem);
+            }
+        }
+
+        function actualizarTotalProductos(total) {
+            $('#totalProductos').text(total + ' productos');
+        }
+
+        // Event listeners para los filtros
+        $("input[name='categorias']").change(function () {
+            categorias = $("input[name='categorias']:checked").map(function () {
+                return this.value;
+            }).get();
+
+            currentPage = 1;
+            cargarProductos();
+        });
+
+        $("#searchInput").on('input', function () {
+            searchString = $(this).val();
+            currentPage = 1;
+            cargarProductos();
+        });
+
+        $("#marcaSelect").change(function () {
+            idMarca = $(this).val();
+            currentPage = 1;
+            cargarProductos();
+        });
+
+        // Cargar productos inicialmente
+        cargarProductos();
+    });
+</script>

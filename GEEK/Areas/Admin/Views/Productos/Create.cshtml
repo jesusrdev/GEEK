@@ -1,0 +1,164 @@
+﻿@model GEEK.Models.ViewModels.ProductoVM
+
+@{
+    ViewData["Title"] = "Crear Producto";
+}
+
+
+<br />
+<br />
+
+<h3 class="text-center">Crear un nuevo Producto</h3>
+
+<form enctype="multipart/form-data" method="post" asp-action="Create" class="row p-5">
+    <div class="row px-2 mx-auto border col-10">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        @* Mostrar mensajes de error generales *@
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <p>@error.ErrorMessage</p>
+                }
+            </div>
+        }
+
+        <div class="col-10 offset-1 mt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IdProducto"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IdProducto" class="form-control" readonly />
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="NombreProducto"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="NombreProducto" class="form-control" placeholder="Nombre Producto" />
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Precio"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Precio" class="form-control" placeholder="Precio Producto" />
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="StockProducto"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="StockProducto" class="form-control" placeholder="Stock Producto" />
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Descuento"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Descuento" class="form-control" placeholder="Descuento" />
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label for="Categoria">Categoria</label>
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m => m.IdCategoria, Model.ListaCategorias,
+                             "-Por favor seleccione una categoria-", new { @class = "form-control form-select" })
+                    <span asp-validation-for="IdCategoria" class="text-danger"></span>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label for="Marcas">Marcas</label>
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m => m.IdMarca, Model.ListaMarcas,
+                             "-Por favor seleccione una marca-", new { @class = "form-control form-select" })
+                    <span asp-validation-for="IdMarca" class="text-danger"></span>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Descripcion"></label>
+                </div>
+                <div class="col-8">
+                    <textarea asp-for="Descripcion" class="form-control" placeholder="Descripcion">
+
+                    </textarea>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DescripcioGeneral"></label>
+                </div>
+                <div class="col-8">
+                    <textarea id="DescripcionGeneral" asp-for="DescripcioGeneral" class="form-control" placeholder="Descripcion General">
+
+                    </textarea>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-goup-row">
+                <div class="row mb-3 mt-1">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary form-control">Crear</button>
+                    </div>
+                    &nbsp;
+                    <div class="col">
+                        <a asp-action="Index" class="btn btn-success form-control">Volver atras</a>
+                    </div>
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.2.0/tinymce.min.js" integrity="sha512-E2dqytT185qVoAL0sfqr39BLHEBQtmZze59ChMjYi4vRUW6BzIBLZAqErdQAAAJX8bkFq2kQgQL9Lbpm8Uuw0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        tinymce.init({
+            selector: '#DescripcionGeneral',
+            plugins: 'lists',
+            menubar: 'file edit format'
+        })
+    </script>
+}

@@ -1,0 +1,60 @@
+﻿@model GEEK.Models.Categoria
+
+@{
+    ViewData["Title"] = "Crear Categoria";
+}
+
+
+<br />
+<br />
+
+<h3 class="text-center">Crear una nueva categoria</h3>
+<form method="post" asp-action="Create" class="row p-5">
+    <div class="row px-2 mx-auto border col-10">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="col-10 offset-1 mt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IdCategoria"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IdCategoria" class="form-control" readonly />
+
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DescripcionCategoria"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="DescripcionCategoria" class="form-control" placeholder="Descripcion Categoria" />
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-goup-row">
+                <div class="row mb-3 mt-1">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary form-control">Crear</button>
+                    </div>
+                    &nbsp;
+                    <div class="col">
+                        <a asp-action="Index" class="btn btn-success form-control">Volver atras</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
